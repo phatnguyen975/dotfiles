@@ -1,0 +1,21 @@
+vim.keymap.set("n", "<leader>wh", ":split<CR>", { noremap = true, silent = true, desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true, desc = "Split window vertically" })
+
+vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { noremap = true, silent = true, desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k<CR>", { noremap = true, silent = true, desc = "Move to top window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l<CR>", { noremap = true, silent = true, desc = "Move to right window" })
+
+vim.keymap.set("n", "<C-Left>", "<C-w><", { noremap = true, silent = true, desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", "<C-w>>", { noremap = true, silent = true, desc = "Increase window width" })
+vim.keymap.set("n", "<C-Up>", "<C-w>+", { noremap = true, silent = true, desc = "Increase window height" })
+vim.keymap.set("n", "<C-Down>", "<C-w>-", { noremap = true, silent = true, desc = "Decrease window height" })
+
+vim.keymap.set("v", "<S-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected lines down" })
+vim.keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected lines up" })
+
+vim.keymap.set({ "n", "o", "x" }, "<S-h>", "^", { noremap = true, silent = true, desc = "Go to beginning of line" })
+vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", { noremap = true, silent = true, desc = "Go to end of line" })
+
+vim.keymap.set("n", "==", "gg<S-v>G", { noremap = true, silent = true, desc = "Select all" })
+vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true, silent = true, desc = "Paste without replacing register" })
