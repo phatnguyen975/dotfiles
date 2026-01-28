@@ -29,30 +29,31 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local servers = { "pyright", "html", "cssls", "ts_ls" }
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+      local servers = { "pyright", "html", "cssls", "ts_ls", "tailwindcss", "docker_compose_language_service" }
       for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup({ capabilities = capabilities })
+        vim.lsp.config[lsp] = { capabilities = capabilities }
+        vim.lsp.enable(lsp)
       end
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false,
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      })
-      lspconfig.jdtls.setup({
+
+      vim.lsp.config["lua_ls"] = {
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = { globals = { "vim" } },
+						workspace = {
+							library = vim.api.nvim_get_runtime_file("", true),
+							checkThirdParty = false,
+						},
+						telemetry = { enable = false },
+					},
+				},
+			}
+			vim.lsp.enable("lua_ls")
+
+      vim.lsp.config["jdtls"] = {
         capabilities = capabilities,
         settings = {
           java = {
@@ -67,7 +68,9 @@ return {
             },
           },
         },
-      })
+      }
+      vim.lsp.enable("jdtls")
+
       vim.keymap.set("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Show hover information" })
       vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true, desc = "Go to implementation" })
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
