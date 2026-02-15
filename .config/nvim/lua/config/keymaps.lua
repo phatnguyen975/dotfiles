@@ -19,3 +19,24 @@ vim.keymap.set({ "n", "o", "x" }, "<S-l>", "g_", { noremap = true, silent = true
 
 vim.keymap.set("n", "==", "gg<S-v>G", { noremap = true, silent = true, desc = "Select all" })
 vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true, silent = true, desc = "Paste without replacing register" })
+
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = "●",
+		source = true,
+	},
+	float = {
+		border = "rounded",
+		source = true,
+	},
+	update_in_insert = true,
+	severity_sort = true,
+})
+
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go to previous diagnostic" })
