@@ -155,7 +155,7 @@ Ctrl+U              # Delete all characters from the current line to the beginni
 Ctrl+W              # Delete a word before the cursor
 Ctrl+\ Ctrl+O       # Temporarily exit insert mode (cursor hold), execute a single command and return to insert mode
 
-Ctrl+R 0            # Insert the content of the register (internal clipboard No. 0), the register name can be followed by Ctrl+R
+Ctrl+R 0            # Insert the content of the register (internal clipboard No. 0), the register can be followed by Ctrl+R
 Ctrl+R "            # Insert anonymous register content, equivalent to "p" paste in insert mode
 Ctrl+R =            # Insert expression calculation result, equal sign followed by expression
 Ctrl+R :            # Insert the last command line command
@@ -169,7 +169,7 @@ Ctrl+N              # Automatic text completion in insert mode, the most commonl
 Ctrl+P              # Automatic text completion in insert mode
 Ctrl+E              # When there is a completion list, terminate this completion and continue typing
 
-Ctrl+X              # Enter completion mode.Smart completion commands all start with the key combination Ctrl+X
+Ctrl+X              # Enter completion "mode.Smart"
 Ctrl+X Ctrl+L       # Whole line completion
 Ctrl+X Ctrl+N       # In insert mode, complete according to keywords in the current file
 Ctrl+X Ctrl+K       # Complete according to dictionary
@@ -180,7 +180,7 @@ Ctrl+X Ctrl+]       # Complete according to tags
 Ctrl+X Ctrl+D       # Complete macro definition
 Ctrl+X Ctrl+V       # Complete Vim commands
 Ctrl+X Ctrl+U       # User-defined completion method
-Ctrl+X Ctrl+S       # Spelling suggestions, for example: an English word
+Ctrl+X Ctrl+S       # Spelling suggestions, e.g. an English word
 Ctrl+X Ctrl+O       # Insert Omnifunc completion
 ```
 
@@ -189,32 +189,32 @@ Ctrl+X Ctrl+O       # Insert Omnifunc completion
 ```bash
 r                   # Replace the current character
 R                   # Enter replacement mode until you press <Esc> to leave
-[N]s                # Delete [count] characters and start insert
-[N]S                # Delete [count] lines and start insert
-[N]x                # Delete [count] characters under and after the cursor (same as "dl")
+[N]s                # Delete [count] characters and enter insert mode
+[N]S                # Delete [count] lines and enter insert mode
+[N]x                # Delete [count] characters under the cursor (same as "dl")
 [N]X                # Delete [count] characters before the cursor (same as "dh")
 
-cc                  # Rewrite the current line (delete the current line and enter insert mode), same as "S"
-cw                  # Overwrite the current word at the beginning of the cursor
+cc                  # Rewrite the current line and enter insert mode (same as "S")
+cw                  # Rewrite the current word at the beginning of the cursor
 ciw                 # Rewrite the word under the cursor
-caw                 # Rewrite the word under the cursor, and include leading and trailing spaces
-c0                  # Rewrite to the beginning of the line, and enter insert mode
+caw                 # Rewrite the word under the cursor, including leading and trailing spaces (if any)
+c0                  # Rewrite to the beginning of the line and enter insert mode
 c^                  # Rewrite to the beginning of the line (the first non-zero character)
-c$                  # Rewrite to the end of the line, and enter insert mode
+c$                  # Rewrite to the end of the line and enter insert mode
 C                   # Rewrite to the end of the line (same as "c$")
 ci"                 # Rewrite the content in double quotes
 ci'                 # Rewrite the content in single quotes
-cib                 # Rewrite the content in parentheses
-cab                 # Rewrite the content in the parentheses (including the parentheses themselves)
-ci)                 # Rewrite the content in parentheses
+ci)                 # Rewrite the content in the parentheses
 ci]                 # Rewrite the content in the brackets
-ciB                 # Rewrite the content in the braces
-caB                 # Rewrite the content in the braces (including the braces themselves)
 ci}                 # Rewrite the content in the braces
+cib                 # Rewrite the content in the parentheses
+cab                 # Rewrite the content in the parentheses, including the parentheses themselves
+ciB                 # Rewrite the content in the braces
+caB                 # Rewrite the content in the braces, including the braces themselves
 cit                 # Rewrite the content in the XML tag
 cis                 # Rewrite the current sentence
-c2w                 # Write two words instead
-ct(                 # Rewrite before the parentheses
+c2w                 # Rewrite the next two words
+ct(                 # Rewrite to the front of the parenthesis
 
 dd                  # Delete (cut) entire a line
 d0                  # Delete (cut) to the beginning of the line
@@ -223,21 +223,21 @@ d$                  # Delete (cut) to the end of the line
 D                   # Delete (cut) to the end of the line (same as "d$")
 dw                  # Delete (cut) the current word
 diw                 # Delete (cut) the word under the cursor
-daw                 # Delete (cut) the word under the cursor, and include leading and trailing spaces (if any)
+daw                 # Delete (cut) the word under the cursor, including leading and trailing spaces (if any)
 di"                 # Delete the content in double quotes
 di'                 # Delete the content in single quotes
-dib                 # Delete the content in parentheses
-di)                 # Delete the content in parentheses
-dab                 # Delete the content in the parentheses (including the parentheses themselves)
-di]                 # Delete the content in the square brackets
-diB                 # Delete the content in the braces
+di)                 # Delete the content in the parentheses
+di]                 # Delete the content in the brackets
 di}                 # Delete the content in the braces
-daB                 # Delete the content inside the braces (including the braces themselves)
+dib                 # Delete the content in the parentheses
+dab                 # Delete the content in the parentheses, including the parentheses themselves
+diB                 # Delete the content in the braces
+daB                 # Delete the content in the braces, including the braces themselves
 dit                 # Delete the content in the tag in XML
 dis                 # Delete the current sentence
 d2w                 # Delete the next two words
 dt(                 # Delete to the front of the parenthesis
-dgg                 # Delete to the head of the file
+dgg                 # Delete to the beginning of the file
 dG                  # Delete to the end of the file
 d}                  # Delete the next paragraph
 d{                  # Delete the previous paragraph
@@ -245,9 +245,12 @@ Nd                  # Delete N lines from the beginning of the current line
 :Nd                 # Delete line N
 :1,10d              # Delete 1~10 lines
 
-~                   # Replace case
-g~iw                # Replace the case of the current word
-gUiw                # Convert words to uppercase
+~                   # Toggle the case of the current character
+g~~                 # Toggle the case of the current line (same as "V~")
+g~0                 # Toggle the case of all characters to the beginning of the line
+g~$                 # Toggle the case of all characters to the end of the line
+g~iw                # Toggle the case of the current word
+gUiw                # Convert the current word to uppercase
 guiw                # Convert the current word to lowercase
 guu                 # Convert the entire line to lowercase
 gUU                 # Convert the entire line to uppercase
@@ -258,6 +261,70 @@ gUU                 # Convert the entire line to uppercase
 
 Ctrl+A              # Increase the number at cursor
 Ctrl+X              # Decrease the number ar cursor
+```
+
+## Copy and Paste
+
+```bash
+:[range]co[py]{address}
+```
+
+**Parameter Description**
+
+- `[range]`: Indicates the range of lines to be copied, where copy can be abbreviated as :co or :t
+- `{address}`: Indicates the destination of the copy. Both of these parameters can be defaulted to indicate the current line where the Vim cursor is located.
+
+> For example: [:5copy.] means to copy line 5 of the file currently opened by Vim to the current line (indicated by .), that is, to create a copy of line 5 and place it below the current line.
+
+The subscript lists some examples and uses of file copy using the abbreviation t of the copy command, which is used to understand the purpose of the copy command copy.
+
+```bash
+:3,5t.              # Copy the content from lines 3 to 5 below the current line
+:t5                 # Copy the current line below line 5
+:t.                 # Copy the current line below the current line (equivalent to yyp in normal mode)
+:t$                 # Copy the current line to the end of the text
+:'<,'>t0            # Copy the highlighted line to the beginning of the file
+```
+
+**Copy and paste commands**
+
+```bash
+p                   # Paste after the cursor
+P                   # Paste before the cursor
+y                   # Yank (copy) highlighted content
+yw                  # Yank a word from the cursor
+yNw               # Yank N words from the cursor
+y$                  # Yank till the end of the line
+yy                  # Yank (copy) a line
+Y                   # Copy the current line, same as "yy"
+yiw                 # Copy the current word
+Nyy                 # Copy the contents of N lines under the cursor
+ddp                 # Cut the current line and paste (first delete the current line, copy it to the register, and paste)
+v0                  # Select the current position to the beginning of the line
+v$                  # Select the current position to the end of the line
+viw                 # Select the current word
+vib                 # Select things in parentheses
+vi)                 # Select the content in parentheses
+vi]                 # Select the content in the square brackets
+viB                 # Select the content in the braces
+vi}                 # Select the content in the braces
+vis                 # Select the content in the sentence
+vab                 # Select the content in the parentheses (including the parentheses themselves)
+va)                 # Select the content in the parentheses (including the parentheses themselves)
+va]                 # Select the content in the brackets (including the brackets themselves)
+vaB                 # Select the content inside the braces (including the braces themselves)
+va}                 # Select the content inside the braces (including the braces themselves)
+:set paste          # Allow paste mode (to avoid automatic indentation affecting formatting when pasting)
+:set nopaste        # Prohibit paste mode
+"?yy                # Copy the current line to the register?, The question mark represents the register name from 0-9
+"?d3j               # Delete the contents of the three lines under the cursor and put them in the register?, The question mark represents the register name of 0-9
+"?p                 # Paste the contents of the register? After the cursor
+"?P                 # Paste the contents of the register? In front of the cursor
+:registers          # Display the contents of all registers
+:[range]y           # Copy range, for example: 20,30y is to copy 20 to 30 lines, and :10y is to copy the tenth line
+:[range]d           # Delete range, for example: 20,30d is to delete 20 to 30 lines, and :10d is to delete the tenth line
+"_[command]         # Use [command] to delete content without copying (not polluting registers)
+"*[command]         # Use [command] to copy the content to the system clipboard (requires the Vim version to have clipboard support)
 ```
 
 ## Text Object
@@ -350,70 +417,6 @@ gqQ                       # Format before the paragraph to the end of the text
 {Visual}J		          # Join the highlighted lines, with a minimum of two lines. Remove the indent and insert up to two space
 gJ                        # Join [count] lines, with a minimum of two lines. Don't insert or remove any spaces
 ==                        # Filter [count] lines like with ={motion}
-```
-
-## Copy and Paste
-
-```bash
-:[range]co[py]{address}
-```
-
-**Parameter Description**
-
-- `[range]`: Indicates the range of lines to be copied, where copy can be abbreviated as :co or :t
-- `{address}`: Indicates the destination of the copy. Both of these parameters can be defaulted to indicate the current line where the Vim cursor is located.
-
-> For example: [:5copy.] means to copy line 5 of the file currently opened by Vim to the current line (indicated by .), that is, to create a copy of line 5 and place it below the current line.
-
-The subscript lists some examples and uses of file copy using the abbreviation t of the copy command, which is used to understand the purpose of the copy command copy.
-
-```bash
-:3,5t.              # Copy the content from lines 3 to 5 below the current line
-:t5                 # Copy the current line below line 5
-:t.                 # Copy the current line below the current line (equivalent to yyp in normal mode)
-:t$                 # Copy the current line to the end of the text
-:'<,'>t0            # Copy the highlighted line to the beginning of the file
-```
-
-**Copy and paste commands**
-
-```bash
-p                   # Paste after the cursor
-P                   # Paste before the cursor
-y                   # Yank (copy) highlighted content
-yw                  # Yank a word from the cursor
-yNw               # Yank N words from the cursor
-y$                  # Yank till the end of the line
-yy                  # Yank (copy) a line
-Y                   # Copy the current line, same as "yy"
-yiw                 # Copy the current word
-Nyy                 # Copy the contents of N lines under the cursor
-ddp                 # Cut the current line and paste (first delete the current line, copy it to the register, and paste)
-v0                  # Select the current position to the beginning of the line
-v$                  # Select the current position to the end of the line
-viw                 # Select the current word
-vib                 # Select things in parentheses
-vi)                 # Select the content in parentheses
-vi]                 # Select the content in the square brackets
-viB                 # Select the content in the braces
-vi}                 # Select the content in the braces
-vis                 # Select the content in the sentence
-vab                 # Select the content in the parentheses (including the parentheses themselves)
-va)                 # Select the content in the parentheses (including the parentheses themselves)
-va]                 # Select the content in the brackets (including the brackets themselves)
-vaB                 # Select the content inside the braces (including the braces themselves)
-va}                 # Select the content inside the braces (including the braces themselves)
-:set paste          # Allow paste mode (to avoid automatic indentation affecting formatting when pasting)
-:set nopaste        # Prohibit paste mode
-"?yy                # Copy the current line to the register?, The question mark represents the register name from 0-9
-"?d3j               # Delete the contents of the three lines under the cursor and put them in the register?, The question mark represents the register name of 0-9
-"?p                 # Paste the contents of the register? After the cursor
-"?P                 # Paste the contents of the register? In front of the cursor
-:registers          # Display the contents of all registers
-:[range]y           # Copy range, for example: 20,30y is to copy 20 to 30 lines, and :10y is to copy the tenth line
-:[range]d           # Delete range, for example: 20,30d is to delete 20 to 30 lines, and :10d is to delete the tenth line
-"_[command]         # Use [command] to delete content without copying (not polluting registers)
-"*[command]         # Use [command] to copy the content to the system clipboard (requires the Vim version to have clipboard support)
 ```
 
 ## Revocation and Restoration
