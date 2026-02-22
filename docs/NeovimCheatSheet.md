@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Neovim Cheat Sheet</h1>
+  <h1>Neovim Cheatsheet</h1>
   <sub>
     Nguyễn Tấn Phát <br />
     February 18, 2026
@@ -9,24 +9,21 @@
 ## Repeats
 
 ```bash
-.                   # Repeat (Dot) command, repeats the previous command
-N{command}          # Repeat a command N times, e.g. 10k, cursor moves up 10 lines
+.                   # Repeat the previous command
+;                   # Repeat last f, t, F, or T command
+,                   # Repeat last f, t, F, or T command in opposite direction
+N{command}          # Repeat a command N times
 ```
 
 The use of macros and regular expressions can also be used to reduce the number of repetitive operations.
 
 ## Cursor Motions
 
-> **Note:** In normal mode, any of the actions can be repeated.
+```bash
+[count][motion]
+```
 
-- **word:** Letters, digits, and `_`; split by punctuation and whitespace.
-- **WORD:** Any sequence of non-whitespace characters; split only by whitespace.
-- **count:** A number before a motion; repeats the motion that many times.
-  - **Example:** `3w` = move forward 3 words.
-- **exclusive:** The target position is NOT included in the operated text.
-  - **Example:** `dw` deletes up to (but not including) the start of the next word.
-- **inclusive:** the target position IS included in the operated text.
-  - **Example:** `de` deletes through the end of the current word.
+> **Note:** In normal mode, any of the actions can be repeated.
 
 ```bash
                     # -------------------- Unit level cursor movement --------------------
@@ -35,50 +32,51 @@ j                   # Move the cursor down one line
 k                   # Move the cursor up one line
 l                   # The cursor moves to the right of the character
 
-                    # -------------------- Word-level cursor movement --------------------
-w                   # [count] words forward. exclusive motion
-W                   # [count] WORDS forward. exclusive motion
-e                   # Forward to the end of word [count] inclusive
-E                   # Forward to the end of WORD [count] inclusive
-b                   # [count] words backward. exclusive motion
-B                   # [count] WORDS backward. exclusive motion
+                    # -------------------- Word level cursor movement --------------------
+w                   # Move forward to next word, with cursor on first character
+W                   # Move forward to next WORD (by whitespace only), with cursor on first character
+e                   # Move forward to next word, with cursor on last character
+E                   # Move forward to next WORD (by whitespace only), with cursor on last character
+b                   # Move backward to next word, with cursor on first character
+B                   # Move backward to next WORD (by whitespace only), with cursor on first character
+ge                  # Move backward to next word, with cursor on last character
+gE                  # Move backward to next WORD (by whitespace only), with cursor on last character
+fc                  # Move forward to next occurrence of character c on the current line
+Fc                  # Move backward to next occurrence of character c on the current line
+tc                  # Move cursor forward till next character c on the current line
+Tc                  # Move cursor backward till next character c on the current line
 
                     # -------------------- Block level cursor movement --------------------
-0                   # To the first character of the line
-^                   # To the first non-blank character of the line. exclusive motion. Any count is ignored
-$                   # To the end of the line
-gg                  # Goto line [count], default first line, on the first non-blank character line
-G                   # Goto line [count], default last line, on the first non-blank character line
-[N]G                # Jump to the Nth row, for example 10G is to move to the tenth row
-:N                  # Jump to the Nth line, for example :10<Enter> is to move to the tenth line
-N%                  # Move to the N% position of the file, for example 10% is moved to the 10% position of the file
+0                   # Move to the first character of the line, including whitespace, [count] is ignored
+^                   # Move to the first non-blank character of the line, [count] is ignored
+$                   # Move to the end of the line, [count] is ignored
+gg                  # Move to line [count], default first line, on the first non-blank character line
+G                   # Move to line [count], default last line, on the first non-blank character line
+:N                  # Move to the Nth line
+N%                  # Move to the N% position of the file
 N|                  # Move to N columns of the current row
-<Enter>             # Move to the first non-blank character in the next line
 N<Enter>            # Move the cursor down N lines
-ge                  # Move backward to the end of the word
-gE                  # Move backward to the end of a word separated by a whitespace
 )                   # Move forward one sentence (separated by periods)
-(                   # Move backward one sentence (period separated）
+(                   # Move backward one sentence (separated by periods）
 }                   # Move forward one paragraph (separated by blank lines)
 {                   # Move backward one paragraph (separated by blank lines)
-+                   # Move to the first non-blank character in the next line (same as the Enter key)
++                   # Move to the first non-blank character in the next line
 -                   # Move to the first non-blank character in the previous line
-H                   # Move cursor to header (top) line of current visible window (H: High)
+H                   # Move cursor to header line of current visible window (H: High)
 M                   # Move cursor to middle line of current visible window (M: Middle)
 L                   # Move cursor to last line of current visible window (L: Low)
-gm                  # Move to the middle of the line
+gm                  # Move to character at middle of the screen line
+gM	                # Move to character at middle of the text line
 gj                  # Move the cursor down one screen line (ignore automatic line wrapping)
 gk                  # Move the cursor up one screen line (ignore auto-wrap)
-fc                  # Move cursor to next occurrence of character c on the current line, use "Fc" to move backwards
-tc                  # Move cursor till next character c on the current line, use "Tc" to move backwards
-<S+Up>              # Hold down the <Shift> key and then press the <Up> arrow key to page up
-<S+Down>            # Hold down the <Shift> key and then press the <Down> arrow key to page down
-<S+Left>            # Hold down the <Shift> key and press the <Left> arrow key to move one word to the left
-<S+Right>           # Hold down the <Shift> key and press the <Right> arrow key to move one word to the right
+<S+Up>              # Hold down the <Shift> and press the <Up> arrow to page up
+<S+Down>            # Hold down the <Shift> and press the <Down> arrow to page down
+<S+Left>            # Hold down the <Shift> and press the <Left> arrow to move one word to the left
+<S+Right>           # Hold down the <Shift> and press the <Right> arrow to move one word to the right
 :ju[mps]            # Print the jump list
 :cle[arjumps]       # Clear the jump list of the current window
 
-                    # -------------------- Screen-level cursor movement --------------------
+                    # -------------------- Screen level cursor movement --------------------
 zz                  # Adjust the cursor line to the center of the screen
 zt                  # Adjust the cursor line to the upper part of the screen
 zb                  # Adjust the cursor line to the bottom of the screen
@@ -89,8 +87,8 @@ Ctrl+D              # Move down 1/2 a screen
 Ctrl+F              # Move forward one full screen
 Ctrl+B              # Move backard one full screen
 
-                    # -------------------- Programming assistance level cursor movement --------------------
-%                   # Match jump to the corresponding {} () []
+                    # -------------------- Programming level cursor movement --------------------
+%                   # Match jump to the corresponding {} () [] <>
 gd                  # Jump to the local definition (the definition of the word under the cursor)
 gD                  # Jump to the global definition (the definition of the word under the cursor)
 gf                  # Open the file whose name is the file name under the cursor
@@ -106,8 +104,8 @@ gf                  # Open the file whose name is the file name under the cursor
 ]c                  # The next difference (when diffing)
 [/                  # Jump to the beginning of the C comment
 ]/                  # Jump to the end of the C comment
-``                  # Go back to the last jumped position
-''                  # Go back to the last jumped position
+``                  # Back to the last jumped position
+''                  # Back to the last jumped position
 `.                  # Back to the last edited position
 '.                  # Back to the last edited position
 ```
@@ -115,15 +113,14 @@ gf                  # Open the file whose name is the file name under the cursor
 ## Insert Mode
 
 ```bash
-i                   # Enter insert mode at the cursor
+i                   # Enter insert mode at the left of the cursor
 I                   # Enter insert mode at the beginning of the line
-a                   # Enter insert mode after the cursor
+a                   # Enter insert mode at the right of the cursor
 A                   # Enter insert mode at the end of the line
 o                   # Insert line below current line and enter insert mode
 O                   # Insert line above current line and enter insert mode
-s                   # Delete the character under the cursor and insert text
-S                   # Delete the current line and insert text
-gi                  # Go to the position of the last insert mode
+s                   # Delete the character under the cursor and enter insert mode
+S                   # Delete the current line and enter insert mode
 gI                  # Insert text at the start of line (column 1)
 <Esc>               # Exit insert mode
 Ctrl+[              # Exit insert mode (equivalent to <Esc> key)
@@ -132,23 +129,24 @@ Ctrl+C              # Like Ctrl-[ and <Esc>, but does not check for abbreviation
 
 ## Insert Mode Commands
 
-> **Note:** Enter insert mode by `i`, `I`, `a`, `A`, `o`, `O`, `s`, `S` command.
+> **Note:** Enter insert mode by `i`, `I`, `a`, `A`, `o`, `O`, `s`, `S` commands.
 
 ```bash
 <Up>                # Cursor up
 <Down>              # Cursor down
 <Left>              # Move the cursor to the left
 <Right>             # Move the cursor to the right
-<S+Up>              # Hold down the <Shift> key and then press the <Up> arrow key to page up
-<S+Down>            # Hold down the <Shift> key and then press the <Down> arrow key to page down
-<S+Left>            # Hold down the <Shift> key and press the <Left> arrow key to move one word to the left
-<S+Right>           # Hold down the <Shift> key and press the <Right> arrow key to move one word to the right
+<S+Up>              # Hold down the <Shift> and press the <Up> arrow to page up
+<S+Down>            # Hold down the <Shift> and press the <Down> arrow to page down
+<S+Left>            # Hold down the <Shift> and press the <Left> arrow to move one word to the left
+<S+Right>           # Hold down the <Shift> and press the <Right> arrow to move one word to the right
 <PageUp>            # Page up
 <PageDown>          # Page down
 <Delete>            # Delete the character at the cursor
 <Backspace>         # Backspace key is to delete characters backward
 <Home>              # Cursor jump to the beginning of the line
 <End>               # Cursor jump to end of line
+
 Ctrl+D              # Decrease indent
 Ctrl+T              # Increase indent
 Ctrl+H              # Delete the previous character, equivalent to Backspace
@@ -156,19 +154,12 @@ Ctrl+O              # Temporarily exit insert mode, execute a single command and
 Ctrl+U              # Delete all characters from the current line to the beginning of the line
 Ctrl+W              # Delete a word before the cursor
 Ctrl+\ Ctrl+O       # Temporarily exit insert mode (cursor hold), execute a single command and return to insert mode
-Ctrl+R 0            # Insert the contents of the register (internal clipboard No. 0), the register name can be followed by Ctrl+R
-Ctrl+R "            # Insert anonymous register content, which is equivalent to p paste in insert mode
+
+Ctrl+R 0            # Insert the content of the register (internal clipboard No. 0), the register name can be followed by Ctrl+R
+Ctrl+R "            # Insert anonymous register content, equivalent to "p" paste in insert mode
 Ctrl+R =            # Insert expression calculation result, equal sign followed by expression
 Ctrl+R :            # Insert the last command line command
 Ctrl+R /            # Insert the last search keyword
-Ctrl+V {char}       # Insert non-numeric literals
-Ctrl+V {code}       # Insert the ASCII/Unicode character encoding represented by three digits, such as Ctrl+V 065
-Ctrl+V 065          # Insert a decimal ASCII character (two digits) 065 is the A character
-Ctrl+V x41          # Insert hexadecimal ASCII characters (three numbers) x41 is the A character
-Ctrl+V o101         # Insert octal ASCII characters (three numbers) o101 is the A character
-Ctrl+V u1234        # Insert hexadecimal Unicode characters (four digits)
-Ctrl+V U12345678    # Insert hexadecimal Unicode characters (eight digits)
-Ctrl+K {ch1} {ch2}  # Insert digraph (see :h digraph), quickly enter Japanese or symbols, etc.
 ```
 
 ## Autocomplete
