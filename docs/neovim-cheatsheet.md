@@ -6,6 +6,9 @@
   </sub>
 </div>
 
+- [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
+- [pawelborkar](https://github.com/pawelborkar/vim-cheatsheet)
+
 ## Repeats
 
 ```bash
