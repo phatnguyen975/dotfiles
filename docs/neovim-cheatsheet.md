@@ -274,35 +274,38 @@ Ctrl+X              # Decrease the number ar cursor
 
 **Parameter Description**
 
-- `[range]`: Indicates the range of lines to be copied, where copy can be abbreviated as :co or :t
-- `{address}`: Indicates the destination of the copy. Both of these parameters can be defaulted to indicate the current line where the Vim cursor is located.
+- `[range]`: Indicates the range of lines to be copied, where copy can be abbreviated as `:co` or `:t`.
+- `{address}`: Indicates the destination of the copy. Both of these parameters can be defaulted to indicate the current line where the cursor is located.
 
-> For example: [:5copy.] means to copy line 5 of the file currently opened by Vim to the current line (indicated by .), that is, to create a copy of line 5 and place it below the current line.
+**For example:** `[:5copy.]` means to copy line `5` of the file currently opened to the current line (indicated by `.`), that is, to create a copy of line `5` and place it below the current line.
 
-The subscript lists some examples and uses of file copy using the abbreviation t of the copy command, which is used to understand the purpose of the copy command copy.
+The subscript lists some examples and uses of file copy using the abbreviation `t` of the copy command, which is used to understand the purpose of the copy command `copy`.
 
 ```bash
 :3,5t.              # Copy the content from lines 3 to 5 below the current line
 :t5                 # Copy the current line below line 5
-:t.                 # Copy the current line below the current line (equivalent to yyp in normal mode)
+:t.                 # Copy the current line below the current line (equivalent to "yyp" in normal mode)
 :t$                 # Copy the current line to the end of the text
 :'<,'>t0            # Copy the highlighted line to the beginning of the file
 ```
 
-**Copy and paste commands**
+**Copy and Paste Commands**
 
 ```bash
 p                   # Paste after the cursor
 P                   # Paste before the cursor
+
 y                   # Yank (copy) highlighted content
-yw                  # Yank a word from the cursor
-yNw               # Yank N words from the cursor
-y$                  # Yank till the end of the line
 yy                  # Yank (copy) a line
-Y                   # Copy the current line, same as "yy"
-yiw                 # Copy the current word
-Nyy                 # Copy the contents of N lines under the cursor
-ddp                 # Cut the current line and paste (first delete the current line, copy it to the register, and paste)
+Y                   # Yank the current line, same as "yy"
+yw                  # Yank a word from the cursor
+yNw                 # Yank N words from the cursor
+y$                  # Yank till the end of the line
+yiw                 # Yank the current word
+Nyy                 # Yank the contents of N lines under the cursor
+ddp                 # Cut the current line and paste (delete the current line, copy it to the register, and paste)
+J                   # Join current line with the next line, use "gJ" to exclude join-position space
+
 v0                  # Select the current position to the beginning of the line
 v$                  # Select the current position to the end of the line
 viw                 # Select the current word
@@ -312,20 +315,21 @@ vi]                 # Select the content in the square brackets
 viB                 # Select the content in the braces
 vi}                 # Select the content in the braces
 vis                 # Select the content in the sentence
-vab                 # Select the content in the parentheses (including the parentheses themselves)
-va)                 # Select the content in the parentheses (including the parentheses themselves)
-va]                 # Select the content in the brackets (including the brackets themselves)
-vaB                 # Select the content inside the braces (including the braces themselves)
-va}                 # Select the content inside the braces (including the braces themselves)
+vab                 # Select the content in the parentheses, including the parentheses themselves
+va)                 # Select the content in the parentheses, including the parentheses themselves
+va]                 # Select the content in the brackets, including the brackets themselves
+vaB                 # Select the content inside the braces, including the braces themselves
+va}                 # Select the content inside the braces, including the braces themselves
+
 :set paste          # Allow paste mode (to avoid automatic indentation affecting formatting when pasting)
 :set nopaste        # Prohibit paste mode
-"?yy                # Copy the current line to the register?, The question mark represents the register name from 0-9
-"?d3j               # Delete the contents of the three lines under the cursor and put them in the register?, The question mark represents the register name of 0-9
-"?p                 # Paste the contents of the register? After the cursor
-"?P                 # Paste the contents of the register? In front of the cursor
+"?yy                # Yank the current line to the register?, the question mark represents the register name from 0-9
+"?d3j               # Delete the contents of the three lines under the cursor and put them in the register?, the question mark represents the register name of 0-9
+"?p                 # Paste the contents of the register? after the cursor
+"?P                 # Paste the contents of the register? before the cursor
 :registers          # Display the contents of all registers
-:[range]y           # Copy range, for example: 20,30y is to copy 20 to 30 lines, and :10y is to copy the tenth line
-:[range]d           # Delete range, for example: 20,30d is to delete 20 to 30 lines, and :10d is to delete the tenth line
+:[range]y           # Yank range, for example: ":20,30y" is to copy 20 to 30 lines, and ":10y" is to copy the tenth line
+:[range]d           # Delete range, for example: ":20,30d" is to delete 20 to 30 lines, and ":10d" is to delete the tenth line
 "_[command]         # Use [command] to delete content without copying (not polluting registers)
 "*[command]         # Use [command] to copy the content to the system clipboard (requires the Vim version to have clipboard support)
 ```
@@ -336,10 +340,10 @@ va}                 # Select the content inside the braces (including the braces
 
 ```bash
 aw                  # Operate the entire word, excluding the delimiter (aw: a word)
-aW                  # Manipulate entire words, including separators (aW: a Word)
-iw                  # Operate the entire word, excluding the separator (iw: inner word)
-iW                  # Operate the entire word, including the separator (iW: inner Word)
-is                  # Operate the entire sentence, excluding the separator (s: sentence)
+aW                  # Operate entire words, including the delimiter (aW: a Word)
+iw                  # Operate the entire word, excluding the delimiter (iw: inner word)
+iW                  # Operate the entire word, including the delimiter (iW: inner Word)
+is                  # Operate the entire sentence, excluding the delimiter (s: sentence)
 ib                  # Operation contains block, from [( to ]) (b: block)
 iB                  # Operation contains large blocks, from [{ to ]} (B: Block)
 ab                  # Operate a block, from [( to ])(b: block)
@@ -368,7 +372,7 @@ Nf)                 # Move to the Nth parenthesis
 Nt)                 # Move to the Nth parenthesis
 ```
 
-**The text object can be simply summarized as:**
+The text object can be simply summarized as:
 
 ```bash
 ci', ci", ci(, ci[, ci{, ci<                 # Change the text content in these paired punctuation marks separately
