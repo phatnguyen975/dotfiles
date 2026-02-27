@@ -21,6 +21,14 @@
 - [Text Object](#text-object)
 - [Move Text](#move-text)
 - [Formatting Text](#formatting-text)
+- [Revocation and Restoration](#revocation-and-restoration)
+- [Find and Replace](#find-and-replace)
+- [Visual Mode](#visual-mode)
+- [Comment Commands](#comment-commands)
+- [Open File](#open-file)
+- [Save and Exit](#save-and-exit)
+- [File Operations](#file-operations)
+- [Buffers](#buffers)
 
 ## Repeats
 
@@ -57,10 +65,6 @@ b                   # Move backward to next word, with cursor on first character
 B                   # Move backward to next WORD (by whitespace only), with cursor on first character
 ge                  # Move backward to next word, with cursor on last character
 gE                  # Move backward to next WORD (by whitespace only), with cursor on last character
-fc                  # Move forward to next occurrence of character c on the current line
-Fc                  # Move backward to next occurrence of character c on the current line
-tc                  # Move cursor forward till next character c on the current line
-Tc                  # Move cursor backward till next character c on the current line
 
                     # -------------------- Block level cursor movement --------------------
 0                   # Move to the first character of the line, including whitespace, [count] is ignored
@@ -68,10 +72,10 @@ Tc                  # Move cursor backward till next character c on the current 
 $                   # Move to the end of the line, [count] is ignored
 gg                  # Move to line [count], default first line, on the first non-blank character line
 G                   # Move to line [count], default last line, on the first non-blank character line
-:N                  # Move to the Nth line
-N%                  # Move to the N% position of the file
-N|                  # Move to N columns of the current row
-N<Enter>            # Move the cursor down N lines
+:[N]                # Move to the Nth line
+[N]%                # Move to the N% position of the file
+[N]|                # Move to N columns of the current row
+[N]<Enter>          # Move the cursor down N lines
 )                   # Move forward one sentence (separated by periods)
 (                   # Move backward one sentence (separated by periods）
 }                   # Move forward one paragraph (separated by blank lines)
@@ -257,8 +261,8 @@ dgg                 # Delete to the beginning of the file
 dG                  # Delete to the end of the file
 d}                  # Delete the next paragraph
 d{                  # Delete the previous paragraph
-Nd                  # Delete N lines from the beginning of the current line
-:Nd                 # Delete line N
+[N]d                # Delete N lines from the beginning of the current line
+:[N]d               # Delete line N
 :1,10d              # Delete 1~10 lines
 
 ~                   # Toggle the case of the current character
@@ -285,8 +289,6 @@ Ctrl+X              # Decrease the number ar cursor
 :[range]co[py]{address}
 ```
 
-**Parameter Description**
-
 - `[range]`: Indicates the range of lines to be copied, where copy can be abbreviated as `:co` or `:t`.
 - `{address}`: Indicates the destination of the copy. Both of these parameters can be defaulted to indicate the current line where the cursor is located.
 
@@ -312,12 +314,11 @@ y                   # Yank (copy) highlighted content
 yy                  # Yank (copy) a line
 Y                   # Yank the current line, same as "yy"
 yw                  # Yank a word from the cursor
-yNw                 # Yank N words from the cursor
+y[N]w               # Yank N words from the cursor
 y$                  # Yank till the end of the line
 yiw                 # Yank the current word
-Nyy                 # Yank the contents of N lines under the cursor
+[N]yy               # Yank the contents of N lines under the cursor
 ddp                 # Cut the current line and paste (delete the current line, copy it to the register, and paste)
-J                   # Join current line with the next line, use "gJ" to exclude join-position space
 
 v0                  # Select the current position to the beginning of the line
 v$                  # Select the current position to the end of the line
@@ -381,8 +382,8 @@ at                  # Operate a tag block, such as from <aaa> to </aaa> (t: tag)
 it                  # Operation contains a tag block, such as from <aaa> to </aaa>
 2i)                 # Operate outside the two parentheses
 2a)                 # Operate the outer two levels of parentheses, including the parentheses themselves
-Nf)                 # Move to the Nth parenthesis in the current line
-Nt)                 # Move to the Nth parenthesis in the current line
+[N]f)               # Move to the Nth parenthesis in the current line
+[N]t)               # Move to the Nth parenthesis in the current line
 ```
 
 The text object can be simply summarized as:
@@ -402,8 +403,6 @@ vi', vi", vi(, vi[, vi{, vi<                 # Select the text content in these 
 :[range]m[ove]{address}
 ```
 
-**Parameter Description**
-
 - `[range]`: Indicates the range of rows to be moved.
 - `{address}`: Indicates the target position of the movement, both of these parameters can be defaulted.
 
@@ -418,103 +417,101 @@ vi', vi", vi(, vi[, vi{, vi<                 # Select the text content in these 
 ## Formatting Text
 
 ```bash
-[N]>>                     # Shift [count] lines one 'shiftwidth' rightwards
-[N]<<                     # Shift [range] lines one 'shiftwidth' left
-:ce[nter]                 # Set the text of the bank to be centered
-:le[ft]                   # Set the text of the bank to the left
-:ri[ght]                  # Set the text of the bank to the right
+[N]>>                     # Shift [count] lines one 'shiftwidth' right
+[N]<<                     # Shift [count] lines one 'shiftwidth' left
+
+:ce[nter]                 # Center lines within 'textwidth'
+:le[ft]                   # Left-align lines (shift text to column 0)
+:ri[ght]                  # Right-align lines within 'textwidth'
+
 :[range]ce[nter] [width]  # Center lines in [range] between [width] columns
-:[range]le[ft] [indent]   # Left-align lines in [range].  Sets the indent in the lines to [indent]
+:[range]le[ft] [indent]   # Left-align lines in [range], set the indent to [indent]
 :[range]ri[ght] [width]   # Right-align lines in [range] at [width] columns
-gq                        # Format the current line
-gqq                       # Format the current line. With a count format that many lines
+
+gqq                       # Format the current line
 gq[N]q                    # Format [count] lines
 gqap                      # Format the current paragraph
 gq[N]ap                   # Format [count] paragraphs
 gq[N]j                    # Format the current line and the following [count] lines
 gqQ                       # Format before the paragraph to the end of the text
-[N]J                      # Join [N] lines, with a minimum of two lines
-{Visual}J		          # Join the highlighted lines, with a minimum of two lines. Remove the indent and insert up to two space
-gJ                        # Join [count] lines, with a minimum of two lines. Don't insert or remove any spaces
+[N]J                      # Join N lines with a minimum of two lines
+{Visual}J		              # Join the highlighted lines with a minimum of two lines, remove the indent and insert up to two space
+gJ                        # Join [count] lines with a minimum of two lines, don't insert or remove any spaces
 ==                        # Filter [count] lines like with ={motion}
 ```
 
 ## Revocation and Restoration
 
 ```bash
-[N]u                # The undo command can be combined. For example, Nu, N is any integer, which means to undo N operations, the same below. (u: undo)
+[N]u                # Undo N operations (u: undo)
 [N]U                # Undo the entire operation on current line
-Ctrl+r              # Cancel the last u command (r: redo)
+Ctrl+r              # Cancel the last "u" command (r: redo)
 Ctrl+R              # Rewind the previous command
 ```
 
 ## Find and Replace
 
-**Find command in normal mode**
+**Find Commands in Normal Mode**
 
 ```bash
 /pattern            # Search pattern from the cursor to the end of the file, accepts regular expressions
 ?pattern            # Search pattern from the cursor to the head of the file, accepts regular expressions
 n                   # Repeat the last "/" or "?" command
 N                   # Repeat the last "/" or "?" command in the opposite direction
-%                   # Matching bracket movement, including (), {}, []. Combining the following two commands is quite powerful for programmers (premise: you need to move the cursor to the parentheses first)
+%                   # Matching bracket movement, including (), {}, []. (You need to move the cursor to the brackets first)
 *                   # Search forward for the word under the cursor
 #                   # Search backward for the word under the cursor
-f{char}             # Search backward for the first character of the current line as {char}, 2fv can find the second character of v
-F{char}             # Search forward for the first character in the current line that is {char}
-t{char}             # Search backward before the first character in the current line that is {char}
-T{char}             # Search forward before the first character in the current line that is {char}
-;                   # Repeat the last character search command (f/t command)
-,                   # Reverse the direction to find the last character search command (f/t command)
-tx                  # Search the current line before the specified string
-fx                  # Search the current line to the specified string
-<Esc>               # Abandon the search. For example, after starting the f command, I found that I wanted to use the F command, and the <Esc> exit key gave up the search
+
+f{char}             # Search forward for the next occurrence of {char} in the current line
+F{char}             # Search backward for the next occurrence of {char} in the current line
+t{char}             # Search forward till the next {char} in the current line
+T{char}             # Search backward till the next {char} in the current line
+
+<Esc>               # Abandon the search
+:noh                # Clear search highlight
 ```
 
-**Note:** The `<Esc>` key can abort most commands.
-
-**Replace command in normal mode**
+**Replace Commands in Normal Mode**
 
 ```bash
 :[range]s[ubstitute]/{pattern}/{string}/[flags]
 ```
 
-**Parameter description:**
+- `{pattern}`: It is the string to be replaced, which can be represented by regexp.
+- `{string}`: Replace pattern by string.
 
-- `pattern`: It is the string to be replaced, which can be represented by regexp.
-- `string`: Replace pattern by string.
-- `[range]`: There are the following values.
+- `[range]` has the following values:
 
-| [range] value | Description                                                                                           |
-| ------------- | ----------------------------------------------------------------------------------------------------- |
-| null          | Default cursor line                                                                                   |
-| .             | The current line where the cursor is                                                                  |
-| N             | Line N                                                                                                |
-| $             | the last line                                                                                         |
-| 'a            | Mark the line where a (has been marked with ma before)                                                |
-| $-1           | The penultimate row, you can add or subtract a certain value to a certain row to obtain a certain row |
-| 1,10          | Line 1~10                                                                                             |
-| 1,$           | First line to last line                                                                               |
-| 1,.           | First line to current line                                                                            |
-| .,$           | Current line to last line                                                                             |
-| 'a,'b         | Mark the line where a is located to the line where the mark b is located (marked with ma, mb before)  |
-| %             | All rows (equivalent to 1, $)                                                                         |
-| ?str?         | Search upwards from the current position and find the first line of str (str can be regular)          |
-| /str/         | Search down from the current position to find the first line of str (str can be regular)              |
+| `[range]` Value | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `null`          | Default cursor line                                                                                   |
+| `.`             | The current line where the cursor is                                                                  |
+| `N`             | The Nth line                                                                                          |
+| `$`             | The last line                                                                                         |
+| `'a`            | Mark the line where `a` is located (marked with `ma` before)                                          |
+| `$-1`           | The penultimate row, you can add or subtract a certain value to a certain row to obtain a certain row |
+| `1,10`          | The 1~10 lines                                                                                        |
+| `1,$`           | First line to last line                                                                               |
+| `1,.`           | First line to current line                                                                            |
+| `.,$`           | Current line to last line                                                                             |
+| `'a,'b`         | Mark the line where `a` is located to the line where `b` is located (marked with `ma`, `mb` before)   |
+| `%`             | All rows (equivalent to `1,$`)                                                                        |
+| `?str?`         | Search upwards from the current position to find the first line of `str` (`str` can be regexp)        |
+| `/str/`         | Search down from the current position to find the first line of `str` (`str` can be regexp)           |
 
-Note that all the above representation methods for range can be used to set the relative offset through + and-operations.
+> **Note:** All the above representation values for `range` can be used to set the relative offset through `+` and `-` operations.
 
-- [flags] has the following values:
+- `[flags]` has the following values:
 
-| [flags]value | Description                                         |
-| ------------ | --------------------------------------------------- |
-| g            | Replace all matches (global) in the specified range |
-| c            | Ask the user to confirm before replacing (confirm)  |
-| e            | Ask the user to confirm before replacing (confirm)  |
-| i            | not case sensitive                                  |
-| null         | Only replace the first match in the specified range |
+| `[flags]` Value | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `g`             | Replace all matches (global) in the specified range |
+| `c`             | Ask the user to confirm before replacing (confirm)  |
+| `e`             | Ask the user to confirm before replacing (confirm)  |
+| `i`             | No case sensitive                                   |
+| `null`          | Only replace the first match in the specified range |
 
-For example:
+**For Example**
 
 ```bash
 :s/p1/p2/g          # Replace all p1 with p2 in the current line
@@ -524,14 +521,14 @@ For example:
 :%s/1\\2\/3/123/g   # Replace "1\2/3" with "123" (special characters are marked with backslashes)
 :%s/\r//g           # Delete DOS line break ^M
 :%s///gn            # Count the number of matches in a pattern
-:%s/^\s*$\n//g      # Delete all blank lines in the Vim open file
-:g/^\s*$/d          # Delete all blank lines in the Vim open file
-:%s/^M$//g          # Delete the explicit ^M symbol in the Vim file (operating system line break problem)
+:%s/^\s*$\n//g      # Delete all blank lines in the file
+:g/^\s*$/d          # Delete all blank lines in the file
+:%s/^M$//g          # Delete the explicit ^M symbol in the file (operating system line break problem)
 ```
 
 ## Visual Mode
 
-**Note: In Vim visual mode, you can select an editing area, and then perform operations such as inserting, deleting, replacing, and changing the case of the selected file content.**
+> **Note:** In visual mode, you can select an editing area, and then perform operations such as inserting, deleting, replacing, and changing the case of the selected file content.
 
 ```bash
 v                   # Switch to character-oriented visual mode
@@ -544,10 +541,10 @@ x                   # Delete the highlighted text
 c                   # Rewrite the text, that is, delete the highlighted text and enter the insert mode
 s                   # Rewrite the text, that is, delete the highlighted text and enter the insert mode
 y                   # Copy text
-~                   # Convert case
+~                   # Toggle case
 o                   # Jump to the other end of the marked area
 O                   # Jump to the other end of the marker block
-u                   # Marked area converted to lower case
+u                   # Convert marked area to lowercase
 U                   # Convert marked area to uppercase
 gv                  # Reselect the last highlighted selection
 g Ctrl+G            # Show statistics of the selected area
@@ -555,9 +552,7 @@ ggVG                # Select full text
 <Esc>               # Press <Esc> to exit visual mode
 ```
 
-In addition: The Vim Normal command can execute commands in the normal mode in the command line mode. When the Normal command is combined with the Vim visualization mode, a lot of repetitive tasks can be completed with few operations.
-
-## Comment Command
+## Comment Commands
 
 | Mode   | Key   | Action                |
 | ------ | ----- | --------------------- |
@@ -565,49 +560,49 @@ In addition: The Vim Normal command can execute commands in the normal mode in t
 | Visual | `gc`  | Toggle selected lines |
 | Visual | `gb`  | Block comment         |
 
-**Complex annotation**
+**Complex Annotations**
 
 ```bash
-:Start line, end line s/^/ comment character /g       # Add a comment at the beginning of the specified line
-:Start line, end line s/^ comment character //g       # Uncomment at the beginning of the specified line
+:[range] s/^/ comment character /g      # Add a comment at the beginning of the specified line
+:[range] s/^ comment character //g      # Uncomment at the beginning of the specified line
 
-:3,5 s/^/#/g        # Comment lines 3-5
-:3,5 s/^#//g        # Uncomment lines 3-5
+:3,5 s/^/#/g                            # Comment lines 3-5
+:3,5 s/^#//g                            # Uncomment lines 3-5
 
-:1,$ s/^/#/g        # Annotate the entire document
-:1,$ s/^#//g        # Uncomment the entire document
+:1,$ s/^/#/g                            # Annotate the entire document
+:1,$ s/^#//g                            # Uncomment the entire document
 
-:%s/^/#/g           # Annotate the entire document, this method is faster
-:%s/^#//g           # Uncomment the entire document
+:%s/^/#/g                               # Annotate the entire document, this method is faster
+:%s/^#//g                               # Uncomment the entire document
 ```
 
 ## Open File
 
 ```bash
-vim .               # Open the file manager, display the catalog file, edit by selecting the file
-vim filename        # Open or create a new file, and place the cursor at the beginning of the first line
-vim + filename      # Open the file and place the cursor at the beginning of the last line
-vim +n filename     # Open the file and place the cursor at the beginning of line n
-vim -c cmd file     # Before opening the file file, execute the specified Vim command cmd
-vim -b file         # Open the file in binary mode, some special characters (such as line break ^M) can be displayed in this mode
-vim -d file1 file2  # Use Vim to open file1 and file2 at the same time and diff the difference between the two files
-vim -r filename     # The system crashed the last time I was editing with Vim, restore the file
-vim -R file         # Open the file as read-only, but you can still use :wq! to write
-vim -M file         # The modification function is forcibly closed and cannot be used :wq! Write
-vim -o file1 file2  # When you want to open a Vim file in the terminal, split and display multiple files horizontally
-vim -O file1 file2  # When you want to open a Vim file in the terminal, split and display multiple files vertically
-vim -x file         # Open the file encrypted
-vim +/target file   # Open file and move the cursor to the first target string found
+nvim .               # Open the file manager, display the catalog file, edit by selecting the file
+nvim filename        # Open or create a new file, and place the cursor at the beginning of the first line
+nvim + filename      # Open the file and place the cursor at the beginning of the last line
+nvim +N filename     # Open the file and place the cursor at the beginning of line N
+nvim -c cmd file     # Before opening the file file, execute the specified command cmd
+nvim -b file         # Open the file in binary mode, some special characters (such as line break ^M) can be displayed in this mode
+nvim -d file1 file2  # Open file1 and file2 at the same time and diff the difference between the two files
+nvim -r filename     # The system crashed the last time I was editing and restore the file
+nvim -R file         # Open the file as read-only, but you can still use ":wq!" to write
+nvim -M file         # The modification function is forcibly closed and cannot be used ":wq!" write
+nvim -o file1 file2  # When you want to open a file in the terminal, split and display multiple files horizontally
+nvim -O file1 file2  # When you want to open a file in the terminal, split and display multiple files vertically
+nvim -x file         # Open the encrypted file
+nvim +/target file   # Open file and move the cursor to the first target string found
 ```
 
 ## Save and Exit
 
-**Note: Save and exit in normal mode.**
+> **Note:** Save and exit in normal mode.
 
 ```bash
 :w                  # Write the file and save it, the time stamp of the file will be modified
 :w {filename}       # Save file by name
-:w !sudo tee %      # Save the file with super user privileges, you can also do this :w !sudo tee%> /dev/null
+:w !sudo tee %      # Save the file with super user privileges, you can also do this ":w !sudo tee%> /dev/null"
 :wa                 # Save all files
 :wall               # Save all files
 :wqall              # Save all files and exit
@@ -647,7 +642,7 @@ ZQ                  # Close the window without saving the file
 :files              # Show all alternate file names
 ```
 
-## Buffer
+## Buffers
 
 ```bash
 :ls                 # Show all buffers
@@ -703,7 +698,7 @@ ZQ                  # Close the window without saving the file
 |    ?    | terminal buffers without a job: `:terminal NONE` |
 |    t    | show time last used and sort buffers             |
 
-## Multi-windows
+## Multi-Windows
 
 > The split-screen window is based on the Ctrl+W shortcut key, Ctrl is the control function key, W stands for Windom, and Ctrl+W stands for control window.
 
@@ -768,7 +763,7 @@ gt                  # Next tab
 gT                  # Previous tab
 ```
 
-## Marks
+## Marking
 
 ```bash
 :marks              # Show all bookmarks
@@ -795,7 +790,7 @@ zug                 # Undo the last word added
 z=                  # Spelling suggestion
 ```
 
-## Fold Commands
+## Folding
 
 ```bash
 zf{motion}          # Operator, manually define a fold (f:fold)
@@ -820,7 +815,7 @@ zo                  # Open a layer of code
 zO                  # Turn on all code folding under the cursor
 ```
 
-## File encryption/decryption
+## File Encryption/Decryption
 
 > The document is encrypted. When you open the file, you will be prompted to enter the password twice in the lower left corner of the screen before you can operate. After saving the file and exiting, you must enter the normal password to open the file correctly, otherwise garbled characters will be displayed.
 
@@ -837,7 +832,7 @@ vim -x {filename}   # Enter the encryption password and confirm the password aga
 :set key=           # Set the key password to be empty in command mode. Note: Save the content without modifying it, otherwise the password setting will not take effect
 ```
 
-## Macro recording
+## Macro Recording
 
 **Macro is the function of recording and playback. It is an integration of a series of Vim command operations. Using macros can achieve a lot of repetitive work.**
 
@@ -877,7 +872,7 @@ syntax on
 
 The above **recording macro, using macro** two common operations, complete the beginning of multiple lines of text, type a Tab key to indent the beginning of the line!
 
-## Other commands
+## Other Commands
 
 ```bash
 ga                  # Display the ASCII code or Unicode code of the character under the cursor
@@ -921,7 +916,7 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 /^\n\{3}            # Search for three consecutive blank lines
 ```
 
-## History commands
+## History Commands
 
 History command format:
 
