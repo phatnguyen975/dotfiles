@@ -6,6 +6,19 @@
   </sub>
 </div>
 
+## Table of Contents
+
+- [Repeats](#repeats)
+- [Cursor Motions](#cursor-motions)
+- [Insert Mode](#insert-mode)
+- [Insert Mode Commands](#insert-mode-commands)
+- [Autocomplete](#autocomplete)
+- [Changes](#changes)
+- [Copy and Paste](#copy-and-paste)
+- [Text Object](#text-object)
+- [Move Text](#move-text)
+- [Formatting Text](#formatting-text)
+
 - [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
 - [pawelborkar](https://github.com/pawelborkar/vim-cheatsheet)
 
@@ -336,52 +349,52 @@ va}                 # Select the content inside the braces, including the braces
 
 ## Text Object
 
-> **Note:** Only applicable to visual mode or after operator, for example: operation includes **select `v`, delete `d`, copy `y`, modify `c`**, etc.
+> **Note:** Only applicable to visual mode or after operator, for example: operation includes **select** `v`, **delete** `d`, **copy** `y`, **modify** `c`, etc.
 
 ```bash
 aw                  # Operate the entire word, excluding the delimiter (aw: a word)
-aW                  # Operate entire words, including the delimiter (aW: a Word)
+aW                  # Operate the entire word, including the delimiter (aW: a Word)
 iw                  # Operate the entire word, excluding the delimiter (iw: inner word)
 iW                  # Operate the entire word, including the delimiter (iW: inner Word)
 is                  # Operate the entire sentence, excluding the delimiter (s: sentence)
 ib                  # Operation contains block, from [( to ]) (b: block)
 iB                  # Operation contains large blocks, from [{ to ]} (B: Block)
-ab                  # Operate a block, from [( to ])(b: block)
+ab                  # Operate a block, from [( to ]) (b: block)
 aB                  # Operate a large block, from [{ to ]} (B: Block)
 ap                  # Operate a paragraph (p: paragraph)
 ip                  # Operation contains paragraph
-i)                  # Manipulate parentheses string
-a)                  # Manipulate the string in the parentheses, including the parentheses themselves
-i]                  # Operation bracket string
-a]                  # Operate the bracket string, including the bracket itself
-i}                  # Manipulate brace strings
-a}                  # Manipulate brace strings, including the braces themselves
-i'                  # Operation single quoted string
-a'                  # Manipulate a single quoted string, including the single quote itself
-i"                  # Manipulate double quoted strings
-a"                  # Manipulate double quoted strings, including the double quotes themselves
-a`                  # Manipulate a backtick string
-i`                  # Operation contains backquote string
-a>                  # Manipulate a <> block
+i)                  # Operate the parentheses string
+a)                  # Operate the parentheses string, including the parentheses themselves
+i]                  # Operate the bracket string
+a]                  # Operate the bracket string, including the bracket themselves
+i}                  # Operate the brace strings
+a}                  # Operate the brace strings, including the braces themselves
+i'                  # Operation contains single quoted strings
+a'                  # Operate a single quoted string, including the single quotes themselves
+i"                  # Operation contains double quoted strings
+a"                  # Operate a double quoted string, including the double quotes themselves
+a`                  # Operate a backtick string
+i`                  # Operation contains backtick string
+a>                  # Operate a <> block
 i>                  # Operation contains <> block
-at                  # Manipulate a tag block, for example from <aaa> to </aaa> (t: tag)
-it                  # The operation contains a tag block, such as from <aaa> to </aaa>
+at                  # Operate a tag block, such as from <aaa> to </aaa> (t: tag)
+it                  # Operation contains a tag block, such as from <aaa> to </aaa>
 2i)                 # Operate outside the two parentheses
 2a)                 # Operate the outer two levels of parentheses, including the parentheses themselves
-Nf)                 # Move to the Nth parenthesis
-Nt)                 # Move to the Nth parenthesis
+Nf)                 # Move to the Nth parenthesis in the current line
+Nt)                 # Move to the Nth parenthesis in the current line
 ```
 
 The text object can be simply summarized as:
 
 ```bash
 ci', ci", ci(, ci[, ci{, ci<                 # Change the text content in these paired punctuation marks separately
-di', di", di(, dib, di[, di{, diB, di<       # Delete the text content in these paired punctuation marks respectively
+di', di", di(, di[, di{, dib, diB, di<       # Delete the text content in these paired punctuation marks respectively
 yi', yi", yi(, yi[, yi{, yi<                 # Copy the text content of these paired punctuation marks separately
 vi', vi", vi(, vi[, vi{, vi<                 # Select the text content in these paired punctuation marks respectively
 ```
 
-`cit`, `dit`, `yit`, `vit`, Operate the content between a pair of tags separately, and edit HTML and XML are easy to use! In addition, if you change the above `i` to `a`, you can operate the matching punctuation and the content in the matching punctuation at the same time.
+`cit`, `dit`, `yit`, `vit`, which operate the content between a pair of tags separately, and edit HTML and XML are easy to use! In addition, if you change the above `i` to `a`, you can operate the matching punctuation and the content in the matching punctuation at the same time.
 
 ## Move Text
 

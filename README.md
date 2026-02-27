@@ -49,7 +49,7 @@ Neovim is my primary editor and it's setup is designed to be:
 
 - **⌨️ Cheatsheet** \
   A quick reference for keybindings, commands, and common workflows. \
-  → [docs/NeovimCheatsheet.md](./docs/neovim-cheatsheet.md)
+  → [docs/neovim-cheatsheet.md](./docs/neovim-cheatsheet.md)
 
 ## ✨ Starship
 
