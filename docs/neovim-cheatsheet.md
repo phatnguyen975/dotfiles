@@ -6,6 +6,9 @@
   </sub>
 </div>
 
+- [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
+- [pawelborkar](https://github.com/pawelborkar/vim-cheatsheet)
+
 ## Table of Contents
 
 - [Repeats](#repeats)
@@ -18,9 +21,6 @@
 - [Text Object](#text-object)
 - [Move Text](#move-text)
 - [Formatting Text](#formatting-text)
-
-- [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
-- [pawelborkar](https://github.com/pawelborkar/vim-cheatsheet)
 
 ## Repeats
 

@@ -11,13 +11,15 @@ vim.keymap.set("n", "<C-Right>", "<C-w>>", { noremap = true, silent = true, desc
 vim.keymap.set("n", "<C-Up>", "<C-w>+", { noremap = true, silent = true, desc = "Increase window height" })
 vim.keymap.set("n", "<C-Down>", "<C-w>-", { noremap = true, silent = true, desc = "Decrease window height" })
 
-vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected lines down" })
-vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected lines up" })
+vim.keymap.set("n", "<M-j>", ":m .+1<CR>==", { noremap = true, silent = true, desc = "Move current line down" })
+vim.keymap.set("n", "<M-k>", ":m .-2<CR>==", { noremap = true, silent = true, desc = "Move current line up" })
+vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected block down" })
+vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = "Move selected block up" })
 
 vim.keymap.set({ "n", "o", "x" }, "<M-h>", "^", { noremap = true, silent = true, desc = "Go to beginning of line" })
 vim.keymap.set({ "n", "o", "x" }, "<M-l>", "$", { noremap = true, silent = true, desc = "Go to end of line" })
 
-vim.keymap.set("n", "==", "gg<S-v>G", { noremap = true, silent = true, desc = "Select all" })
+vim.keymap.set("n", "==", "gg<S-v>G", { noremap = true, silent = true, desc = "Select all content of current buffer" })
 vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true, silent = true, desc = "Paste without replacing register" })
 
 vim.diagnostic.config({

@@ -1,7 +1,6 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
 format = """
-[╭─](green)\
 $os\
 $username\
 $directory\
@@ -169,7 +168,7 @@ format = '[$user]($style) in '
 
 [directory]
 truncation_length = 3
-truncation_symbol = "~/"
+truncation_symbol = "…/"
 style = "peach"
 format = '[$path]($style) '
 
@@ -328,8 +327,8 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = "[╰─](green)"
-error_symbol = "[╰─](green)[](red)"
+success_symbol = "[](green)"
+error_symbol = "[](red)"
 vimcmd_symbol = "[](green)"
 vimcmd_replace_one_symbol = "[](lavender)"
 vimcmd_replace_symbol = "[](lavender)"
