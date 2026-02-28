@@ -34,6 +34,11 @@
 22. [Spell Checking](#spell-checking)
 23. [Folding](#folding)
 24. [File Encryption/Decryption](#file-encryptiondecryption)
+25. [Macro Recording](#macro-recording)
+26. [Other Commands](#other-commands)
+27. [History Commands](#history-commands)
+28. [Register](#register)
+29. [Config Files](#config-files)
 
 ## Repeats
 
@@ -584,20 +589,20 @@ ggVG                # Select full text
 ## Open File
 
 ```bash
-nvim .               # Open the file manager, display the catalog file, edit by selecting the file
-nvim filename        # Open or create a new file, and place the cursor at the beginning of the first line
-nvim + filename      # Open the file and place the cursor at the beginning of the last line
-nvim +N filename     # Open the file and place the cursor at the beginning of line N
-nvim -c cmd file     # Before opening the file file, execute the specified command cmd
-nvim -b file         # Open the file in binary mode, some special characters (such as line break ^M) can be displayed in this mode
-nvim -d file1 file2  # Open file1 and file2 at the same time and diff the difference between the two files
-nvim -r filename     # The system crashed the last time I was editing and restore the file
-nvim -R file         # Open the file as read-only, but you can still use ":wq!" to write
-nvim -M file         # The modification function is forcibly closed and cannot be used ":wq!" write
-nvim -o file1 file2  # When you want to open a file in the terminal, split and display multiple files horizontally
-nvim -O file1 file2  # When you want to open a file in the terminal, split and display multiple files vertically
-nvim -x file         # Open the encrypted file
-nvim +/target file   # Open file and move the cursor to the first target string found
+vim .               # Open the file manager, display the catalog file, edit by selecting the file
+vim filename        # Open or create a new file, and place the cursor at the beginning of the first line
+vim + filename      # Open the file and place the cursor at the beginning of the last line
+vim +N filename     # Open the file and place the cursor at the beginning of line N
+vim -c cmd file     # Before opening the file file, execute the specified command cmd
+vim -b file         # Open the file in binary mode, some special characters (such as line break ^M) can be displayed in this mode
+vim -d file1 file2  # Open file1 and file2 at the same time and diff the difference between the two files
+vim -r filename     # The system crashed the last time I was editing and restore the file
+vim -R file         # Open the file as read-only, but you can still use ":wq!" to write
+vim -M file         # The modification function is forcibly closed and cannot be used ":wq!" write
+vim -o file1 file2  # When you want to open a file in the terminal, split and display multiple files horizontally
+vim -O file1 file2  # When you want to open a file in the terminal, split and display multiple files vertically
+vim -x file         # Open the encrypted file
+vim +/target file   # Open file and move the cursor to the first target string found
 ```
 
 ## Save and Exit
@@ -677,7 +682,7 @@ ZQ                  # Close the window without saving the file
 :sbl[ast]           # Split window and go to last buffer in buffer list
 
 :bm[odified] [N]    # Go to Nth next modified buffer
-:sbm[odified] [N]	  # Split window and go to Nth next modified buffer
+:sbm[odified] [N]   # Split window and go to Nth next modified buffer
 
 :bd[elete] [N]      # Unload buffer N (default: current buffer) and delete it from the buffer list
 :bdelete[!] {name}  # Same as ":bdelete [N]", but buffer given by name
@@ -705,7 +710,7 @@ ZQ                  # Close the window without saving the file
 
 ## Windows
 
-> The split-screen window is based on the "Ctrl+W" shortcut key.
+> The split-screen window is based on the `Ctrl+W` shortcut key.
 
 ```bash
 :sp {filename}      # Split the window horizontally and open the file in a new window filename
@@ -863,19 +868,19 @@ vim -x {filename}   # Enter the encryption password and confirm the password aga
 
 ## Macro Recording
 
-**Macro is the function of recording and playback. It is an integration of a series of Vim command operations. Using macros can achieve a lot of repetitive work.**
+> Macro is the function of recording and playback. It is an integration of a series of command operations. Using macros can achieve a lot of repetitive work.
 
 ```bash
 qa                  # Start recording the macro named a
 q                   # End recording macro
 @a                  # Play the macro named a
 @@                  # Play the previous macro
-@:                  # Repeat the last ex command (colon command)
+@:                  # Repeat the last execute command (colon command)
 ```
 
-**Macro example**: You need to type a Tab key at the beginning of the following multi-line text to indent the beginning of the line.
+**Macro example:** You need to type a `Tab` key at the beginning of the following multi-line text to indent the beginning of the line.
 
-```
+```bash
 set nu
 set tabstop=4
 set shiftwidth=4
@@ -885,21 +890,21 @@ set wrap
 syntax on
 ```
 
-### Record macro
+### Record Macro
 
 - Move the cursor to the first line first.
-- In Normal mode, press the q key and a letter to start recording. For example, press qa to register the macro as a.
-- Press I to insert at the beginning of the line, and press Tab in edit mode. Press <Esc> to return to Normal mode.
-- Press the j key to move the cursor to the next line.
-- Press the q key to finish recording.
+- In normal mode, press the `q` key and a letter to start recording. For example, press `qa` to register the macro as `a`.
+- Press `I` to insert at the beginning of the line, and press `Tab` in insert mode. Press `<Esc>` to return to normal mode.
+- Press the `j` key to move the cursor to the next line.
+- Press the `q` key to finish recording.
 
-### Use macro
+### Use Macro
 
-- Using the macro a recorded above, press @a to play the macro named a.
-- Move the cursor to the second line in Normal mode, press @a, and use macro a again.
-- Press N@a for multiple operations, where N is a positive integer, which means that the macro is executed N times. For example, move the cursor to line 3, operate macro a on the remaining 5 lines, and press 5@a.
+- Using the macro `a` recorded above, press `@a` to play the macro named `a`.
+- Move the cursor to the second line in normal mode, press `@a`, and use macro `a` again.
+- Press `N@a` for multiple operations, where `N` is a positive integer, which means that the macro is executed `N` times. For example, move the cursor to line 3, operate macro `a` on the remaining 5 lines, and press `5@a`.
 
-The above **recording macro, using macro** two common operations, complete the beginning of multiple lines of text, type a Tab key to indent the beginning of the line!
+> The above two common operations (**recording macro** and **using macro**) complete the beginning of multiple lines of text, type a `Tab` key to indent the beginning of the line.
 
 ## Other Commands
 
@@ -911,7 +916,7 @@ K                   # Query the help of the word under the cursor
 Ctrl+G              # Display the name of the file being edited, as well as size and location information
 g Ctrl+G            # Display file size, number of characters, number of words and number of lines, also available in visual mode
 Ctrl+PgUp           # On the last tab page, GVim OK, some terminal software needs to set the corresponding keyboard code
-Ctrl+PgDown         # The next tab page, GVim OK, some terminal software needs to set the corresponding keyboard code
+Ctrl+PgDown         # On the next tab page, GVim OK, some terminal software needs to set the corresponding keyboard code
 Ctrl+R Ctrl+W       # Insert the word under the cursor in command mode
 Ctrl+Insert         # Copy to the system clipboard (GVIM)
 Shift+Insert        # Paste the contents of the system clipboard (GVIM)
@@ -934,13 +939,13 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 :%!xxd -r           # Save binary edit
 :r !curl -sL {URL}  # After reading the URL content and adding it to the cursor
 :g/^\s*$/d          # Delete blank lines
-:g/green/d          # Delete all lines containing green
-:v/green/d          # Delete all lines that do not contain green
+:g/green/d          # Delete all lines containing "green"
+:v/green/d          # Delete all lines that do not contain "green"
 :g/gladiolli/#      # Search words and print the results, and add the line number before the results
-:g/ab.*cd.*efg/#    # Search for lines containing ab, cd and efg, print the result and line number
+:g/ab.*cd.*efg/#    # Search for lines containing "ab", "cd" and "efg", print the result and line number
 :v/./,/./-j         # Compress blank lines
 :Man bash           # View man in Vim, first call :runtime! ftplugin/man.vim to activate
-/fred\|joe          # Search for fred or joe
+/fred\|joe          # Search for "fred" or "joe"
 /\<\d\d\d\d\>       # Search exactly four numbers
 /^\n\{3}            # Search for three consecutive blank lines
 ```
@@ -970,44 +975,43 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 
 ```bash
 q:                  # View command line history
-q/                  # View search history used q/ entered
-q?                  # View usage q? entered search history
+q/                  # View search history used "q/" entered
+q?                  # View usage "q?" entered search history
 CTRL+C CTRL+C       # Close command line history
 ```
 
 ## Register
 
-**View register value.**
+**Register Value**
 
 ```bash
 :reg                   # View all register values
 :reg {register}        # View the specified register value
 ```
 
-**Recall register value.**
+**Recall Register Value**
 
 ```bash
 "{register}            # Recall register value in normal mode
-:Ctrl+r "registerName  # After entering Ctrl+r in command mode, Vim will automatically type "register reference symbol
-Ctrl+r registerName    # In insert mode (no need to enter register reference symbol ")
+:Ctrl+R "{register}    # After entering "Ctrl+R" in command mode, Vim will automatically type "register reference symbol
+Ctrl+R {register}      # In insert mode (no need to enter register reference symbol ")
 ```
 
-**Vim register classification**
+**Register Classification**
 
-| Register name         | Citation method    | Description                                                                                                                                                                                                                                                                                                                                       |
-| --------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Unnamed register      | ""                 | The default register, all copy and modify operations (x, s, d, c, y) will copy the data to the unnamed register                                                                                                                                                                                                                                   |
-| Named register        | "a - "z or "A - "Z | {register} can only be one of 26 English letters, from a-z, A-Z register contents will be merged into the corresponding lowercase letters                                                                                                                                                                                                         |
-| Copy special register | "0(Number 0)       | Only when the copy operation (y) is used, the data will be copied to the unnamed register and the copy special register at the same time                                                                                                                                                                                                          |
-| Numbered register     | "1 - "9            | All data without ranges ('(',')','{','}') and operations involving more than 1 line of delete and modify operations (x, s, d, c) will be copied to the stepwise temporary cache register , And when new data is added, it progresses step by step. The data of 1 is copied to 2, 2 to 3, and the contents of the last 9 registers will be deleted |
-| Black hole register   | "\_                | Almost all the data involved in the operation will be copied to the register. If you want the data to be operated not to pass through the register, you can specify a black hole register. The data will disappear when the register arrives, and it cannot be displayed and does not exist.                                                      |
-| System clipboard      | "+ or "\*          | When interacting with the GUI external to Vim, you need to use a special system clipboard                                                                                                                                                                                                                                                         |
-| Expression register   | "=                 | The most special one of all registers is used to calculate expressions. After entering the register application, it will prompt "=" in the command line, enter the expression as needed, and the result will be displayed at the cursor                                                                                                           |
-| Other registers       | -                  | -                                                                                                                                                                                                                                                                                                                                                 |
+| Register name         | Citation method            | Description                                                                                                                                                                                                                                                                                                                                                 |
+| --------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unnamed register      | `""`                       | The default register, all copy and modify operations (`x`, `s`, `d`, `c`, `y`) will copy the data to the unnamed register                                                                                                                                                                                                                                   |
+| Named register        | `"a` - `"z` or `"A` - `"Z` | `{register}` can only be one of 26 English letters, from `a-z`, `A-Z` register contents will be merged into the corresponding lowercase letters                                                                                                                                                                                                             |
+| Copy special register | `"0` (Number 0)            | Only when the copy operation (`y`) is used, the data will be copied to the unnamed register and the copy special register at the same time                                                                                                                                                                                                                  |
+| Numbered register     | `"1` - `"9`                | All data without ranges `('(',')','{','}')` and operations involving more than 1 line of delete and modify operations (`x`, `s`, `d`, `c`) will be copied to the stepwise temporary cache register, and when new data is added, it progresses step by step. The data of 1 is copied to 2, 2 to 3, and the contents of the last 9 registers will be deleted. |
+| Black hole register   | `"_`                       | Almost all the data involved in the operation will be copied to the register. If you want the data to be operated not to pass through the register, you can specify a black hole register. The data will disappear when the register arrives, and it cannot be displayed and does not exist.                                                                |
+| System clipboard      | `"+` or `"*`               | When interacting with the GUI external to Vim, you need to use a special system clipboard.                                                                                                                                                                                                                                                                  |
+| Expression register   | `"=`                       | The most special one of all registers is used to calculate expressions. After entering the register application, it will prompt "=" in the command line, enter the expression as needed, and the result will be displayed at the cursor.                                                                                                                    |
 
-## Vim Config File
+## Config Files
 
-> Note: Vim configuration files are available in global and user versions, and user configuration files take precedence over global system configuration files.
+> **Note:** Configuration files are available in global and user versions, and user configuration files take precedence over global system configuration files.
 
 ```bash
 :ve[rsion]          # Check the Vim version, and also check the priority order and location of Vim loading configuration files
