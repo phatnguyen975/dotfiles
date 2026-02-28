@@ -7,28 +7,33 @@
 </div>
 
 - [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
-- [pawelborkar](https://github.com/pawelborkar/vim-cheatsheet)
 
 ## Table of Contents
 
-- [Repeats](#repeats)
-- [Cursor Motions](#cursor-motions)
-- [Insert Mode](#insert-mode)
-- [Insert Mode Commands](#insert-mode-commands)
-- [Autocomplete](#autocomplete)
-- [Changes](#changes)
-- [Copy and Paste](#copy-and-paste)
-- [Text Object](#text-object)
-- [Move Text](#move-text)
-- [Formatting Text](#formatting-text)
-- [Revocation and Restoration](#revocation-and-restoration)
-- [Find and Replace](#find-and-replace)
-- [Visual Mode](#visual-mode)
-- [Comment Commands](#comment-commands)
-- [Open File](#open-file)
-- [Save and Exit](#save-and-exit)
-- [File Operations](#file-operations)
-- [Buffers](#buffers)
+1. [Repeats](#repeats)
+2. [Cursor Motions](#cursor-motions)
+3. [Insert Mode](#insert-mode)
+4. [Insert Mode Commands](#insert-mode-commands)
+5. [Autocomplete](#autocomplete)
+6. [Changes](#changes)
+7. [Copy and Paste](#copy-and-paste)
+8. [Text Object](#text-object)
+9. [Move Text](#move-text)
+10. [Formatting Text](#formatting-text)
+11. [Revocation and Restoration](#revocation-and-restoration)
+12. [Find and Replace](#find-and-replace)
+13. [Visual Mode](#visual-mode)
+14. [Comment Commands](#comment-commands)
+15. [Open File](#open-file)
+16. [Save and Exit](#save-and-exit)
+17. [File Operations](#file-operations)
+18. [Buffers](#buffers)
+19. [Windows](#windows)
+20. [Tab Page](#tab-page)
+21. [Bookmarks](#bookmarks)
+22. [Spell Checking](#spell-checking)
+23. [Folding](#folding)
+24. [File Encryption/Decryption](#file-encryptiondecryption)
 
 ## Repeats
 
@@ -621,16 +626,16 @@ ZQ                  # Close the window without saving the file
 :e[dit] {filename}  # Open the file and edit, open the file by the absolute or relative path of the file, Tab key to complete the path
 :e[dit] .           # Open the file manager, browse the files in the current directory, select and edit
 :e[dit]             # Reload current file
-:E[xplore]          # Open the file manager, and display the directory where the active buffer is located
+:E[xplore]          # Open the file manager, and display the directory where the active buffer is
 :saveas {filename}  # Save as specified file
 :o {filename}       # Open another file in the current window (o: open)
 :r {filename}       # Read the file and insert the content after the cursor
 :r !dir             # Capture and insert the output of the dir command after the cursor
-:on[ly]             # Close other windows except the window where the cursor is located, same as Ctrl+W o
-:clo[se]            # Close the file in the window where the cursor is, the same as Ctrl+W c
-:cd {path}          # Switch Vim current path
+:on[ly]             # Close other windows except the window where the cursor is same as "Ctrl+W o"
+:clo[se]            # Close the file in the window where the cursor is, the same as "Ctrl+W c"
+:cd {path}          # Change current path
 :cd -               # Go back to the last current directory
-:pwd                # Show Vim current path
+:pwd                # Show current path
 :n[ew] {filename}   # Open a new window to edit the new file filename
 :new                # Open a new window to edit a new file
 :ene[w]             # Create a new file in the current window
@@ -648,126 +653,137 @@ ZQ                  # Close the window without saving the file
 :ls                 # Show all buffers
 :files              # Show all buffers
 :buffers            # Show all buffers
-:ls [flags]         # View the buffer for the specified state, where [flags] is taken from the following list
+:ls [flags]         # View the buffer for the specified state
 
 :ba[ll]             # Rearrange the screen to open one window for each buffer in the buffer list
-:bad[d] {name}      # Add file name {fname} to the buffer list, without loading it, if it wasn't listed yet
-:b[uffer] [N]       # Edit buffer [N] from the buffer list.  If [N] is not given, the current buffer remains being edited
-:b[uffer] {name}    # Edit buffer for {name} from the buffer lis
-:sb[uffer] [N]      # Split window and edit buffer [N] from the buffer list
-:sb[uffer] {name}   # Split window and edit buffer for |{bufname}| from the buffer list
+:bad[d] {name}      # Add file name {name} to the buffer list without loading it, if it wasn't listed yet
+:b[uffer] [N]       # Edit buffer N from the buffer list. If N is not given, the current buffer remains being edited
+:b[uffer] {name}    # Edit buffer for {name} from the buffer list
+:sb[uffer] [N]      # Split window and edit buffer N from the buffer list
+:sb[uffer] {name}   # Split window and edit buffer for {name} from the buffer list
 
-:bn[ext] [N]        # Go to [N]th next buffer in buffer list
-:bN[ext] [N]        # Go to [N]th previous buffer in buffer list
-:sbn[ext] [N]       # Split window and go to [N]th next buffer in buffer list
-:sbN[ext] [N]		# Split window and go to [N]th previous buffer in buffer list
-:bp[revious] [N]    # Go to [N]th previous buffer in buffer list
-:sbp[revious] [N]   # Split window and go to [N]th previous buffer in buffer list
+:bn[ext] [N]        # Go to Nth next buffer in buffer list
+:bN[ext] [N]        # Go to Nth previous buffer in buffer list
+:bp[revious] [N]    # Go to Nth previous buffer in buffer list
+:sbn[ext] [N]       # Split window and go to Nth next buffer in buffer list
+:sbN[ext] [N]		    # Split window and go to Nth previous buffer in buffer list
+:sbp[revious] [N]   # Split window and go to Nth previous buffer in buffer list
 
 :br[ewind]          # Go to first buffer in buffer list
-:bf[irst]           # Go to first buffer in buffer list, Same as :brewind
+:bf[irst]           # Go to first buffer in buffer list, same as ":brewind"
 :sbr[ewind]         # Split window and go to first buffer in buffer list
-:sbf[irst]          # Same as :sbrewind
+:sbf[irst]          # Split window and go to first buffer in buffer list, same as ":sbrewind"
 :bl[ast]            # Go to last buffer in buffer list
 :sbl[ast]           # Split window and go to last buffer in buffer list
 
-:bm[odified] [N]    # Go to [N]th next modified buffer
-:sbm[odified] [N]	# Split window and go to [N]th next modified buffer
+:bm[odified] [N]    # Go to Nth next modified buffer
+:sbm[odified] [N]	  # Split window and go to Nth next modified buffer
 
-:bd[elete] [N]      # Unload buffer [N] (default: current buffer) and delete it from the buffer list
-:bdelete[!] {name}  # Like ":bdelete [N]", but buffer given by name
+:bd[elete] [N]      # Unload buffer N (default: current buffer) and delete it from the buffer list
+:bdelete[!] {name}  # Same as ":bdelete [N]", but buffer given by name
 :N,Mbdelete         # Do ":bdelete" for all buffers in the range N to M inclusive
-:bun[load][!] [N]   # Unload buffer [N] (default: current buffer)
+:bun[load][!] [N]   # Unload buffer N (default: current buffer)
 ```
 
-[flags] can be a combination of the following characters:
+`[flags]` can be a combination of the following characters:
 
-| [flags] | description                                      |
-| :-----: | ------------------------------------------------ |
-|    +    | modified buffers                                 |
-|    -    | buffers with 'modifiable' off                    |
-|    =    | readonly buffers                                 |
-|    a    | active buffers                                   |
-|    u    | unlisted buffers (overrides the "!")             |
-|    h    | hidden buffers                                   |
-|    x    | buffers with a read error                        |
-|    %    | current buffer                                   |
-|    #    | alternate buffer                                 |
-|    R    | terminal buffers with a running job              |
-|    F    | terminal buffers with a finished job             |
-|    ?    | terminal buffers without a job: `:terminal NONE` |
-|    t    | show time last used and sort buffers             |
+| `[flags]` Value | Description                                      |
+| :-------------: | ------------------------------------------------ |
+|       `+`       | Modified buffers                                 |
+|       `-`       | Buffers with 'modifiable' off                    |
+|       `=`       | Readonly buffers                                 |
+|       `a`       | Active buffers                                   |
+|       `u`       | Unlisted buffers (overrides the "!")             |
+|       `h`       | Hidden buffers                                   |
+|       `x`       | Buffers with a read error                        |
+|       `%`       | Current buffer                                   |
+|       `#`       | Alternate buffer                                 |
+|       `R`       | Terminal buffers with a running job              |
+|       `F`       | Terminal buffers with a finished job             |
+|       `?`       | Terminal buffers without a job: `:terminal NONE` |
+|       `t`       | Show time last used and sort buffers             |
 
-## Multi-Windows
+## Windows
 
-> The split-screen window is based on the Ctrl+W shortcut key, Ctrl is the control function key, W stands for Windom, and Ctrl+W stands for control window.
+> The split-screen window is based on the "Ctrl+W" shortcut key.
 
 ```bash
 :sp {filename}      # Split the window horizontally and open the file in a new window filename
 :vs {filename}      # Split the window vertically and open the file in a new window filename
 :split              # Copy the current window to a horizontal window, the content is synchronized, the cursor can be different
-:vsplit             # Copy the current window to another vertical window, the content is synchronized, the cursor can be different
-Ctrl+W              # Switch to the next window
-Ctrl+W s            # Horizo​​ntal split window
-Ctrl+W v            # Split window longitudinally
+:vsplit             # Copy the current window to a vertical window, the content is synchronized, the cursor can be different
+
+Ctrl+W s            # Split current window horizontally
+Ctrl+W v            # Split current window vertically
 Ctrl+W w            # Cycle to the next window
 Ctrl+W W            # Cycle to the previous window
 Ctrl+W p            # Skip to the last visited window
-Ctrl+W r            # reverse window
+Ctrl+W r            # Reverse window
 Ctrl+W c            # Close the current window, but cannot close the last window
-Ctrl+W q            # Exit the current window, if it is the last window, close vi
-Ctrl+W o            # Keep only the active window, close other (o: other) windows, same as :on[ly]
+Ctrl+W q            # Exit the current window, if it is the last window, close editor
+Ctrl+W o            # Keep only the active window, close other windows, same as ":on[ly]"
+
 Ctrl+W h            # Jump to the left window
 Ctrl+W j            # Jump to the window below
 Ctrl+W k            # Jump to the upper window
 Ctrl+W l            # Jump to the right window
+
+Ctrl+W H            # Move the current window to the far left and full height of the screen
+Ctrl+W J            # Move the current window to the bottom and full width of the screen
+Ctrl+W K            # Move the current window to the top and full width of the screen
+Ctrl+W L            # Move the current window to the far right and full height of the screen
+
 Ctrl+W +            # Increase the row height of the current window, you can add a number in front
 Ctrl+W -            # Decrease the row height of the current window, you can add a number in front
-Ctrl+W <            # Reduce the column width of the current window, you can add a number in front
+Ctrl+W <            # Decrease the column width of the current window, you can add a number in front
 Ctrl+W >            # Increase the column width of the current window, you can add a number in front
 Ctrl+W =            # Make all windows the same width and height
-Ctrl+W H            # Move the current window to the far left
-Ctrl+W J            # Move the current window to the bottom
-Ctrl+W K            # Move the current window to the top
-Ctrl+W L            # Move the current window to the far right
+Ctrl+W _            # Maximize the current window vertically
+Ctrl+W |            # Maximize the current window horizontally
+
 Ctrl+W x            # Exchange window
 Ctrl+W f            # Open the file named under the cursor in a new window
 Ctrl+W gf           # Open the file named under the cursor in a new tab
 Ctrl+W T            # Move the current window to a new tab
 Ctrl+W P            # Jump to the preview window
 Ctrl+W z            # Close preview window
-Ctrl+W _            # Maximize the current window vertically
-Ctrl+W |            # Maximize the current window horizontally
 ```
 
 ## Tab Page
 
 ```bash
 :tabs               # Show all tabs
-:tabe {filename}    # Open the file filename in a new tab
-:tabn[ext]          # Next tab
-:tabp[revious]      # Previous tab
-:tabc[lose]         # Close current tab
-:tabo[nly]          # Close other tabs
-:tabn N             # Switch to the Nth tab page, for example: tabn 3 Switch to the third tab page
-:tabm n             # Label move
-:tabfir[st]         # Switch to the first tab
-:tabl[ast]          # Switch to the last tab
-:tab help           # Open help in tab
-:tab drop {file}    # If the file has been opened by other tabs and windows, skip over, otherwise open a new tab
+:tabe new           # Open an empty tab
+:tabe {filename}    # Open the file {filename} in a new tab
 :tab split          # Open the file in the current window in a new tab
 :tab ball           # Open all files in the cache with tabs
-:set showtabline=?  # Set to 0 to not display the tab page label, 1 will be displayed on demand, 2 will be permanently displayed
-Ngt                 # Switch to the Nth tab page, for example, 2gt will switch to the second tab page
-gt                  # Next tab
-gT                  # Previous tab
+:tab help           # Open help in tab
+
+:tabc[lose]         # Close the current tab
+:tabo[nly]          # Close other tabs
+
+:tabn[ext]          # Go to next tab
+:tabp[revious]      # Go to previous tab
+:tabn [N]           # Go to the Nth tab page
+:tabfir[st]         # Go to the first tab
+:tabl[ast]          # Go to the last tab
+:tabm n             # Move based on label
+
+:tab drop {file}    # If the file has been opened by other tabs and windows, skip over, otherwise open a new tab
+:set showtabline=?  # Set ? to 0 to not display the tab page label, 1 will be displayed on demand, 2 will be permanently displayed
+
+[N]gt               # Go to the Nth tab page
+gt                  # Go to next tab
+gT                  # Go to previous tab
 ```
 
-## Marking
+## Bookmarks
 
 ```bash
 :marks              # Show all bookmarks
+:marks ab           # Show bookmarks a, b
 ma                  # Save the current position to bookmark a, the lowercase letter of the book signature is in the file, and the uppercase global
+
 'a                  # Jump to the line of bookmark a
 `a                  # Jump to the location of bookmark a
 `.                  # Jump to the last edited line
@@ -776,9 +792,14 @@ ma                  # Save the current position to bookmark a, the lowercase let
 ]'                  # Jump to the next bookmark
 '<                  # Jump to the beginning of the last visual mode selection area
 '>                  # Jump to the end of the last visual mode selection area
+
+d'a                 # Delete from current line to line of bookmark a
+d`a                 # Delete from current cursor position to position of bookmark a
+c'a                 # Change text from current line to line of bookmark a
+y`a                 # Yank text to unnamed buffer from current cursor position to position of bookmark a
 ```
 
-## Spell Check
+## Spell Checking
 
 ```bash
 :set spell          # Turn on spell check
@@ -793,26 +814,34 @@ z=                  # Spelling suggestion
 ## Folding
 
 ```bash
-zf{motion}          # Operator, manually define a fold (f:fold)
+zf{motion}          # Create a fold from the cursor with {motion}
+zf/string           # Create a fold from the cursor to string
+zf'a                # Create a fold from the cursor to bookmark a
 :{range}fold        # Define the lines included in the range {range} as a fold
-zf                  # Create code folding
-zF                  # Specify the number of rows to create a fold
-za                  # Toggle fold
+
+zi                  # Toggle a fold under the cursor
+za                  # Toggle a fold under the cursor
 zA                  # Switch folding recursively
-zc                  # Close a fold under the cursor (c: close)
-zC                  # Close all folds under the cursor (C: Close)
+zo                  # Open a fold under the cursor
+zO                  # Open all folds under the cursor
+
+zc                  # Close the fold under the cursor
+zC                  # Close all folds under the cursor
 zd                  # Delete the fold under the cursor
 zD                  # Recursively delete all folds
 zE                  # Delete all folds
-zi                  # Toggle fold
+
 zm                  # All codes are folded one level
-zM                  # Fold all code, set foldlevel=0, set foldenable
-zr                  # All codes open one layer
-zR                  # Open all code and set foldlevel to the maximum
+zM                  # Close all open folds
+zr                  # All codes are opened one level
+zR                  # Open all closed folds
 zn                  # Fold none, reset foldenable and open all codes
 zN                  # Fold Normal, reset foldenable and restore all folds
-zo                  # Open a layer of code
-zO                  # Turn on all code folding under the cursor
+
+zj                  # Move the cursor to the next fold
+zk                  # Move the cursor to the previous fold
+[z                  # Move to start of open fold
+]z                  # Move to end of open fold
 ```
 
 ## File Encryption/Decryption
@@ -918,19 +947,15 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 
 ## History Commands
 
-History command format:
-
 ```bash
-:his[tory] [{name}] [{first}][, [{last}]]
+:his[tory] [{name}] [{first}][,[{last}]]
 ```
 
-Parameter Description:
+- `{name}`: Specifies the history type.
+- `{first}`: Specifies where the command history starts, defaults to the first record.
+- `{last}`: Specifies where the command history ends, defaults to the last record.
 
-- {name}: Specifies the history type.
-- {first}: Specifies the starting position of the command history, defaults to the first record.
-- {last}: Specifies where the command history ends, defaults to the last record.
-
-In command line mode.
+**In Command Line Mode**
 
 ```bash
 :his[tory]                # View the history of all commands entered in the command line mode
@@ -941,12 +966,13 @@ In command line mode.
 :help :history            # See help for the :history command
 ```
 
-In normal mode.
+**In Normal Mode**
 
 ```bash
-q/                  # View search history used q/ entered
-q?                  # View usage q? Entered search history
 q:                  # View command line history
+q/                  # View search history used q/ entered
+q?                  # View usage q? entered search history
+CTRL+C CTRL+C       # Close command line history
 ```
 
 ## Register
@@ -979,7 +1005,7 @@ Ctrl+r registerName    # In insert mode (no need to enter register reference sym
 | Expression register   | "=                 | The most special one of all registers is used to calculate expressions. After entering the register application, it will prompt "=" in the command line, enter the expression as needed, and the result will be displayed at the cursor                                                                                                           |
 | Other registers       | -                  | -                                                                                                                                                                                                                                                                                                                                                 |
 
-## Vim config file
+## Vim Config File
 
 > Note: Vim configuration files are available in global and user versions, and user configuration files take precedence over global system configuration files.
 
@@ -1027,7 +1053,7 @@ set insertmode      # Vim is always in insert mode, use Ctrl+o to execute comman
 set all             # List all option settings
 ```
 
-## Vim plugins
+## Vim Plugins
 
 Appearance
 
@@ -1069,7 +1095,7 @@ Other
 
 - [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim): Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window.
 
-## Vim mode
+## Vim Mode
 
 ```bash
 Normal mode         # Press <Esc> or Ctrl+[ to enter, the file name is displayed in the lower left corner or empty
@@ -1079,7 +1105,7 @@ Replacement mode    # Press r or R to start, the lower left corner shows --REPLA
 Command line mode   # Press : or / or ? To start
 ```
 
-## Various commands
+## Various Commands
 
 ```bash
 :!{cmd}             # Execute a one-time Shell command, the following command: :!pwd, change the directory in the current Vim mode
@@ -1094,7 +1120,7 @@ Command line mode   # Press : or / or ? To start
 :%!prog             # Run a text filter program, such as sorting JSON format:%!python -m json.tool
 ```
 
-## Quickfix window
+## Quickfix Window
 
 ```bash
 :copen              # Open the quickfix window (view compilation, grep and other information)
@@ -1107,7 +1133,7 @@ Command line mode   # Press : or / or ? To start
 :cprev              # Jump to the previous error message in quickfix
 ```
 
-## Help commands
+## Help Commands
 
 ```bash
 :h[elp] {command}   # To display the help of related commands, you can also enter :help instead of the command. To exit the help, you need to enter :q

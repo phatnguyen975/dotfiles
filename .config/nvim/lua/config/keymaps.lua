@@ -1,10 +1,24 @@
-vim.keymap.set("n", "<leader>wh", ":split<CR>", { noremap = true, silent = true, desc = "Split window horizontally" })
-vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true, desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>wv", function()
+  vim.ui.input({
+    prompt = "Vertical split file: ",
+    completion = "file",
+  }, function(file)
+    if file and file ~= "" then
+      vim.cmd("vsplit " .. vim.fn.fnameescape(file))
+    end
+  end)
+end, { noremap = true, silent = true, desc = "Split window vertically" })
 
-vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { noremap = true, silent = true, desc = "Move to bottom window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k<CR>", { noremap = true, silent = true, desc = "Move to top window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l<CR>", { noremap = true, silent = true, desc = "Move to right window" })
+vim.keymap.set("n", "<leader>wh", function()
+  vim.ui.input({
+    prompt = "Horizontal split file: ",
+    completion = "file",
+  }, function(file)
+    if file and file ~= "" then
+      vim.cmd("split " .. vim.fn.fnameescape(file))
+    end
+  end)
+end, { noremap = true, silent = true, desc = "Split window horizontally" })
 
 vim.keymap.set("n", "<C-Left>", "<C-w><", { noremap = true, silent = true, desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<C-w>>", { noremap = true, silent = true, desc = "Increase window width" })
