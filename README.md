@@ -117,7 +117,7 @@ This configuration typically includes:
 
 - **⌨️ Cheatsheet** \
   A quick reference for keybindings, commands, and common workflows. \
-  → [docs/neovim-cheatsheet.md](./docs/tmux-cheatsheet.md)
+  → [docs/tmux-cheatsheet.md](./docs/tmux-cheatsheet.md)
 
 ## ⚠️ Disclaimer
 
