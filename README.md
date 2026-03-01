@@ -14,15 +14,18 @@
 ```text
 dotfiles/
 ├── .config/                  # Main configuration directory
-│   ├── nvim/                 # Neovim configuration (Lua, plugins, keymaps, etc.)
-│   ├── powershell/           # PowerShell profile and custom scripts
-│   └── starship/             # Starship prompt configuration (starship.toml)
+│   ├── nvim/
+│   ├── powershell/
+│   ├── starship/
+│   └── tmux/
 │
 ├── assets/                   # Screenshots, images, or other visual assets
 │
 ├── docs/                     # Documentation and notes
-│   ├── neovim-setup.md       # Neovim installation and setup guide
-│   └── neovim-cheatsheet.md  # Neovim keybindings and usage cheatsheet
+│   ├── neovim-cheatsheet.md
+│   ├── neovim-setup.md
+│   ├── starship-setup.md
+│   └── tmux-setup.md
 │
 └── README.md
 ```

@@ -6,7 +6,7 @@
   </sub>
 </div>
 
-## Step 1: Install a Nerd Font on Windows
+## 1. Install a Nerd Font on Windows
 
 Before touching WSL, you must configure your Windows Terminal to support icons.
 
@@ -18,17 +18,13 @@ Before touching WSL, you must configure your Windows Terminal to support icons.
 
 > Modern Neovim plugins use special characters for file icons, git branches, and UI separators. Standard fonts do not have these characters; Nerd Fonts are patched to include them.
 
-## Step 2: Install System Dependencies on Ubuntu
+## 2. Install System Dependencies on Ubuntu
 
 Open your WSL Ubuntu terminal and run the following commands:
 
 ```bash
-sudo apt update && sudo apt upgrade -y
-```
+sudo apt update && sudo apt
 
-**Explanation:** Refreshes the package list and updates existing software on your Ubuntu system to prevent dependency issues.
-
-```bash
 sudo apt install -y build-essential git curl unzip ripgrep fzf bat python3 python3-pip python3-venv
 ```
 
@@ -43,23 +39,7 @@ sudo apt install -y build-essential git curl unzip ripgrep fzf bat python3 pytho
 - `bat`: A modern replacement for cat with syntax highlighting, line numbers, and Git integration.
 - `python3` / `python3-pip` / `python3-venv`: Installs Python and its package managers. Many Neovim Language Servers and tools require a Python environment to function.
 
-## Step 3: Install Node.js via NVM
-
-Neovim relies heavily on Node.js to run Language Servers (via Mason or LSPConfig) for features like autocomplete and error checking. We will use Node Version Manager (NVM) to install it safely without permission issues.
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-source ~/.bashrc
-
-nvm install --lts
-```
-
-## Step 4: Install the Latest Neovim Binary
+## 3. Install the Latest Neovim Binary
 
 The [Releases](https://github.com/neovim/neovim/releases) page provides an [AppImage](https://appimage.org/) that runs on most Linux systems. No installation is needed, just download `nvim-linux-x86_64.appimage` and run it. (It might not work if your Linux distribution is more than 4 years old.) The following instructions assume an `x86_64` architecture; on ARM Linux replace with `arm64`.
 
@@ -88,13 +68,29 @@ If the `./nvim-linux-x86_64.appimage` command fails, try:
 ./nvim-linux-x86_64.appimage --appimage-extract
 ./squashfs-root/AppRun --version
 
-# Optional: exposing nvim globally.
+# (Optional) Exposing nvim globally
 sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 nvim
 ```
 
-## Step 5: Install win32yank for Clipboard Sync
+## 4. Install Node.js via NVM
+
+Neovim relies heavily on Node.js to run Language Servers (via Mason or LSPConfig) for features like autocomplete and error checking. We will use Node Version Manager (NVM) to install it safely without permission issues.
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+source ~/.bashrc
+
+nvm install --lts
+```
+
+## 5. Install win32yank for Clipboard Sync
 
 To copy text in Neovim (WSL) and paste it into Windows (and vice versa) without delay, we use `win32yank`.
 
@@ -109,9 +105,9 @@ rm -rf /tmp/win32yank
 
 **Explanation:** This sequence downloads the Windows executable (`win32yank.exe`) , grants it execution permissions, and places it directly into your WSL Linux filesystem (`~/.local/bin/`). Keeping it in the Linux filesystem instead of the Windows `C:` drive prevents massive speed delays when copying text.
 
-## Step 6: Pull The GitHub Configuration
+## 6. Pull The GitHub Configuration
 
-Now, instead of configuring everything manually, we will pull the specific Neovim configuration directly from `dotfiles` repository.
+Now, instead of configuring everything manually, we will pull the specific Neovim configuration directly from `phatnguyen975/dotfiles` repository.
 
 ```bash
 # Clean up any existing or default Neovim folders to avoid conflicts
