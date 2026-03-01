@@ -45,6 +45,5 @@ vim.opt.showmode = false
 vim.opt.swapfile = false
 
 vim.opt.cursorline = true
-vim.opt.guicursor = "n-v-c:block,i-ci:ver25-blinkwait500-blinkon250-blinkoff200,r-cr:hor20,o:hor50"
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#4E7F93" })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#4E7F93" })

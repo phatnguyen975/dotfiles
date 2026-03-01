@@ -6,8 +6,6 @@
   </sub>
 </div>
 
-- [chloneda](https://github.com/chloneda/vim-cheatsheet/blob/master/README_EN.md)
-
 ## Table of Contents
 
 1. [Repeats](#repeats)
@@ -35,10 +33,16 @@
 23. [Folding](#folding)
 24. [File Encryption/Decryption](#file-encryptiondecryption)
 25. [Macro Recording](#macro-recording)
-26. [Other Commands](#other-commands)
+26. [Register](#register)
 27. [History Commands](#history-commands)
-28. [Register](#register)
-29. [Config Files](#config-files)
+28. [Help Commands](#help-commands)
+29. [Various Commands](#various-commands)
+30. [Other Commands](#other-commands)
+31. [Config Files](#config-files)
+32. [Quickfix Window](#quickfix-window)
+33. [Suggestions](#suggestions)
+34. [Keyboard Diagram](#keyboard-diagram)
+35. [References](#references)
 
 ## Repeats
 
@@ -906,6 +910,105 @@ syntax on
 
 > The above two common operations (**recording macro** and **using macro**) complete the beginning of multiple lines of text, type a `Tab` key to indent the beginning of the line.
 
+## Register
+
+**Register Value**
+
+```bash
+:reg                   # View all register values
+:reg {register}        # View the specified register value
+```
+
+**Recall Register Value**
+
+```bash
+"{register}            # Recall register value in normal mode
+:Ctrl+R "{register}    # After entering "Ctrl+R" in command mode, Vim will automatically type "register reference symbol
+Ctrl+R {register}      # In insert mode (no need to enter register reference symbol ")
+```
+
+**Register Classification**
+
+| Register Name         | Citation Method            | Description                                                                                                                                                                                                                                                                                                                                                 |
+| --------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unnamed register      | `""`                       | The default register, all copy and modify operations (`x`, `s`, `d`, `c`, `y`) will copy the data to the unnamed register.                                                                                                                                                                                                                                  |
+| Named register        | `"a` - `"z` or `"A` - `"Z` | `{register}` can only be one of 26 English letters, from `a-z`, `A-Z` register contents will be merged into the corresponding lowercase letters.                                                                                                                                                                                                            |
+| Copy special register | `"0` (Number 0)            | Only when the copy operation (`y`) is used, the data will be copied to the unnamed register and the copy special register at the same time.                                                                                                                                                                                                                 |
+| Numbered register     | `"1` - `"9`                | All data without ranges `('(',')','{','}')` and operations involving more than 1 line of delete and modify operations (`x`, `s`, `d`, `c`) will be copied to the stepwise temporary cache register, and when new data is added, it progresses step by step. The data of 1 is copied to 2, 2 to 3, and the contents of the last 9 registers will be deleted. |
+| Black hole register   | `"_`                       | Almost all the data involved in the operation will be copied to the register. If you want the data to be operated not to pass through the register, you can specify a black hole register. The data will disappear when the register arrives, and it cannot be displayed and does not exist.                                                                |
+| System clipboard      | `"+` or `"*`               | When interacting with the GUI external to Vim, you need to use a special system clipboard.                                                                                                                                                                                                                                                                  |
+| Expression register   | `"=`                       | The most special one of all registers is used to calculate expressions. After entering the register application, it will prompt "=" in the command line, enter the expression as needed, and the result will be displayed at the cursor.                                                                                                                    |
+
+## History Commands
+
+```bash
+:his[tory] [{name}] [{first}][,[{last}]]
+```
+
+- `{name}`: Specifies the history type.
+- `{first}`: Specifies where the command history starts, defaults to the first record.
+- `{last}`: Specifies where the command history ends, defaults to the last record.
+
+**In Command Line Mode**
+
+```bash
+:his[tory]                # View the history of all commands entered in the command line mode
+:his[tory] all            # Show all types of history
+:history c 1,5            # List the first to fifth command line history
+:history search or / or ? # View search history
+:call histdel("")         # delete history
+:help :history            # See help for the :history command
+```
+
+**In Normal Mode**
+
+```bash
+q:                  # View command line history
+q/                  # View search history used "q/" entered
+q?                  # View usage "q?" entered search history
+CTRL+C CTRL+C       # Close command line history
+```
+
+## Help Commands
+
+```bash
+:h[elp] {command}   # To display the help of related commands, you can also enter ":help" instead of the command. To exit the help, you need to enter ":q".
+:h tutor            # Getting started document
+:h quickref         # Quick help
+:h index            # Query all keyboard command definitions
+:h summary          # Help you better use the built-in help system
+:h Ctrl+H           # Query what does "Ctrl+H" do in normal mode
+:h i_Ctrl+H         # Query what does "Ctrl+H" do in insert mode
+:h i_<Up>           # Query what is on the arrow keys in insert mode
+:h pattern.txt      # Regular expression help
+:h eval             # Scripting help
+:h function-list    # View the list of functions in VimScript
+:h windows.txt      # Window help
+:h tabpage.txt      # Help on using tabs
+:h +timers          # Show help for the +timers feature
+:h :!               # See how to run external commands
+:h tips             # View the documentation of common techniques built into Vim
+:h set-termcap      # See how to set the key scan code
+:viu[sage]          # Displays help for common commands. The purpose is to simulate the corresponding Nvi commands.
+:exu[sage]          # Displays help for the Ex command. The purpose is to simulate the corresponding Nvi commands.
+:ve[rsion]          # View the version, and also view the priority and location of the load configuration file
+```
+
+## Various Commands
+
+```bash
+:!{cmd}             # Execute a one-time Shell command, the following command ":!pwd", change the directory in the current Vim mode
+:!!                 # Re-execute the most recently run command
+:sh[ell]            # Start an interactive Shell to execute multiple commands, the exit command exits and returns to Vim
+:!ls                # Run the external command "ls" and wait for the return
+:r !ls              # Capture the output of the external command "ls" and insert it after the cursor
+:w !sudo tee %      # Sudo saves the current file in the future, it can also be like this ":w !sudo tee % > /dev/null"
+:call system('ls')  # Call the "ls" command, but do not display the returned content
+:!start notepad     # Start Notepad under Windows, you can add silent at the top
+:sil !start cmd     # Open cmd in the current directory under Windows
+:%!prog             # Run a text filter program, such as sorting JSON format ":%!python -m json.tool"
+```
+
 ## Other Commands
 
 ```bash
@@ -950,65 +1053,6 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 /^\n\{3}            # Search for three consecutive blank lines
 ```
 
-## History Commands
-
-```bash
-:his[tory] [{name}] [{first}][,[{last}]]
-```
-
-- `{name}`: Specifies the history type.
-- `{first}`: Specifies where the command history starts, defaults to the first record.
-- `{last}`: Specifies where the command history ends, defaults to the last record.
-
-**In Command Line Mode**
-
-```bash
-:his[tory]                # View the history of all commands entered in the command line mode
-:his[tory] all            # Show all types of history
-:history c 1,5            # List the first to fifth command line history
-:history search or / or ? # View search history
-:call histdel("")         # delete history
-:help :history            # See help for the :history command
-```
-
-**In Normal Mode**
-
-```bash
-q:                  # View command line history
-q/                  # View search history used "q/" entered
-q?                  # View usage "q?" entered search history
-CTRL+C CTRL+C       # Close command line history
-```
-
-## Register
-
-**Register Value**
-
-```bash
-:reg                   # View all register values
-:reg {register}        # View the specified register value
-```
-
-**Recall Register Value**
-
-```bash
-"{register}            # Recall register value in normal mode
-:Ctrl+R "{register}    # After entering "Ctrl+R" in command mode, Vim will automatically type "register reference symbol
-Ctrl+R {register}      # In insert mode (no need to enter register reference symbol ")
-```
-
-**Register Classification**
-
-| Register name         | Citation method            | Description                                                                                                                                                                                                                                                                                                                                                 |
-| --------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Unnamed register      | `""`                       | The default register, all copy and modify operations (`x`, `s`, `d`, `c`, `y`) will copy the data to the unnamed register                                                                                                                                                                                                                                   |
-| Named register        | `"a` - `"z` or `"A` - `"Z` | `{register}` can only be one of 26 English letters, from `a-z`, `A-Z` register contents will be merged into the corresponding lowercase letters                                                                                                                                                                                                             |
-| Copy special register | `"0` (Number 0)            | Only when the copy operation (`y`) is used, the data will be copied to the unnamed register and the copy special register at the same time                                                                                                                                                                                                                  |
-| Numbered register     | `"1` - `"9`                | All data without ranges `('(',')','{','}')` and operations involving more than 1 line of delete and modify operations (`x`, `s`, `d`, `c`) will be copied to the stepwise temporary cache register, and when new data is added, it progresses step by step. The data of 1 is copied to 2, 2 to 3, and the contents of the last 9 registers will be deleted. |
-| Black hole register   | `"_`                       | Almost all the data involved in the operation will be copied to the register. If you want the data to be operated not to pass through the register, you can specify a black hole register. The data will disappear when the register arrives, and it cannot be displayed and does not exist.                                                                |
-| System clipboard      | `"+` or `"*`               | When interacting with the GUI external to Vim, you need to use a special system clipboard.                                                                                                                                                                                                                                                                  |
-| Expression register   | `"=`                       | The most special one of all registers is used to calculate expressions. After entering the register application, it will prompt "=" in the command line, enter the expression as needed, and the result will be displayed at the cursor.                                                                                                                    |
-
 ## Config Files
 
 > **Note:** Configuration files are available in global and user versions, and user configuration files take precedence over global system configuration files.
@@ -1017,111 +1061,9 @@ Ctrl+R {register}      # In insert mode (no need to enter register reference sym
 :ve[rsion]          # Check the Vim version, and also check the priority order and location of Vim loading configuration files
 :echo $MYVIMRC      # Use this command in Vim command mode to output the location of the Vim configuration file
 :edit $MYVIMRC      # Use this command to open the Vim configuration file in Vim command mode
-:so[urce] $MYVIMRC  # After the Vim configuration file is changed, use this command to load the new configuration options. If the vimrc file happens to be the currently active buffer, this command can be simplified to: so %.
+:so[urce] $MYVIMRC  # After the Vim configuration file is changed, use this command to load the new configuration options. If the vimrc file happens to be the currently active buffer, this command can be simplified to "so %".
 :echo $VIM          # Output the location of the global vimrc configuration file, stored in the Vim installation directory
 :echo $HOME         # Output the location of the user vimrc configuration file, stored in the user's home directory
-```
-
-**Vim configuration instructions, please refer to [vimrc configuration file](../vimrc) for details. Note: Vim configuration can be set individually in command mode and only takes effect in the current window!**
-
-```bash
-syntax              # List the defined grammar items
-syntax clear        # Clear defined grammar rules
-syntax on           # Allow syntax highlighting
-syntax off          # Prohibit syntax highlighting
-set history=200     # Record 200 historical commands
-set bs=?            # Set Backspace key mode, modern editor is :set bs=eol,start,indent
-set sw=4            # Set the indent width to 4
-set ts=4            # Set the tab width to 4
-set noet            # Set not to expand Tab to space
-set et              # Set expand Tab to space
-set winaltkeys=no   # Set the normal capture of the Alt key under GVim
-set nowrap          # Turn off word wrap
-set ttimeout        # Allow terminal key detection to time out (the function key under the terminal is a series of scan codes starting with Esc)
-set ttm=100         # Set the terminal key detection timeout to 100 milliseconds
-set term=?          # Set the terminal type, such as the common xterm
-set ignorecase      # Set whether the search ignores case
-set smartcase       # Smart case, ignore case by default, unless the search content contains uppercase letters
-set list            # Set to display tabs and line breaks
-set nu              # Set the display line number, you can use :set nonu to prohibit the display line number
-set number          # Set the display line number, you can use :set nonumber to prohibit the display line number
-set relativenumber  # Set display relative line number (distance between other lines and current line)
-set paste           # Enter paste mode (disable indentation when pasting and other things that affect formatting)
-set nopaste         # End paste mode
-set spell           # Allow spell checking
-set hlsearch        # Set highlight search
-set ruler           # Always show cursor position
-set nocompatible    # The setting is not compatible with the original vi mode (must be set at the very beginning)
-set incsearch       # Dynamic incremental display of search results during search input
-set insertmode      # Vim is always in insert mode, use Ctrl+o to execute commands temporarily
-set all             # List all option settings
-```
-
-## Vim Plugins
-
-Appearance
-
-- [gruvbox](https://github.com/morhetz/gruvbox): Retro groove color scheme for Vim.
-- [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air.
-
-Development
-
-- [nerdcommenter](https://github.com/preservim/nerdcommenter): Vim plugin for intensely nerdy commenting powers.
-- [vim-repeat](https://github.com/tpope/vim-repeat): repeat.vim: enable repeating supported plugin maps with ".".
-- [vim-surround](https://github.com/tpope/vim-surround): surround.vim: Delete/change/add parentheses/quotes/XML-tags/much more with ease.
-- [vim-rainbow](https://github.com/frazrepo/vim-rainbow): Rainbow brackets for Vim.
-- [undotree](https://github.com/mbbill/undotree): The undo history visualizer for Vim.
-
-File management
-
-- [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim.
-- [nerdtree](https://github.com/preservim/nerdtree): A tree explorer plugin for Vim.
-- [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin): A plugin of NERDTree showing git status.
-
-Markdown
-
-- [markdown-preview.vim](https://github.com/iamcco/markdown-preview.vim): markdown preview plugin for (neo)vim.
-- [vim-markdown](https://github.com/preservim/vim-markdown): Markdown Vim Mode
-
-Github
-
-- [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows git diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
-- [vim-fugitive](https://github.com/tpope/vim-fugitive): fugitive.vim: A Git wrapper so awesome, it should be illegal.
-
-Search
-
-- [LeaderF](https://github.com/Yggdroot/LeaderF): An efficient fuzzy finder that helps to locate files, buffers, mrus, gtags, etc. on the fly for both vim and neovim.
-- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Fuzzy file, buffer, mru, tag, etc finder.
-- [tagbar](https://github.com/preservim/tagbar): Vim plugin that displays tags in a window, ordered by scope.
-- [vim-easymotion](https://github.com/easymotion/vim-easymotion): Vim motions on speed.
-
-Other
-
-- [asyncrun.vim](https://github.com/skywind3000/asyncrun.vim): Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window.
-
-## Vim Mode
-
-```bash
-Normal mode         # Press <Esc> or Ctrl+[ to enter, the file name is displayed in the lower left corner or empty
-Insert mode         # Press i to enter, the lower left corner shows --INSERT--
-Visual mode         # Press v to enter, the lower left corner shows --VISUAL--
-Replacement mode    # Press r or R to start, the lower left corner shows --REPLACE--
-Command line mode   # Press : or / or ? To start
-```
-
-## Various Commands
-
-```bash
-:!{cmd}             # Execute a one-time Shell command, the following command: :!pwd, change the directory in the current Vim mode
-:!!                 # Re-execute the most recently run command
-:sh[ell]            # Start an interactive Shell to execute multiple commands, the exit command exits and returns to Vim
-:!ls                # Run the external command ls and wait for the return
-:r !ls              # Capture the output of the external command ls and insert it after the cursor
-:w !sudo tee %      # sudo saves the current file in the future, it can also be like this :w !sudo tee % > /dev/null
-:call system('ls')  # Call the ls command, but do not display the returned content
-:!start notepad     # Start Notepad under Windows, you can add silent at the top
-:sil !start cmd     # Open cmd in the current directory under Windows
-:%!prog             # Run a text filter program, such as sorting JSON format:%!python -m json.tool
 ```
 
 ## Quickfix Window
@@ -1137,77 +1079,30 @@ Command line mode   # Press : or / or ? To start
 :cprev              # Jump to the previous error message in quickfix
 ```
 
-## Help Commands
-
-```bash
-:h[elp] {command}   # To display the help of related commands, you can also enter :help instead of the command. To exit the help, you need to enter :q
-:h tutor            # Getting started document
-:h quickref         # Quick help
-:h index            # Query all keyboard command definitions in Vim
-:h summary          # Help you better use the built-in help system
-:h Ctrl+H           # Query what Ctrl+H does in normal mode
-:h i_Ctrl+H         # Query what does Ctrl+H do in insert mode
-:h i_<Up>           # Query what is on the arrow keys in insert mode
-:h pattern.txt      # Regular expression help
-:h eval             # Scripting help
-:h function-list    # View the list of functions in VimScript
-:h windows.txt      # Window help
-:h tabpage.txt      # Help on using tabs
-:h +timers          # Show help for the +timers feature
-:h :!               # See how to run external commands
-:h tips             # View the documentation of common techniques built into Vim
-:h set-termcap      # See how to set the key scan code
-:viu[sage]          # Displays help for common commands. The purpose is to simulate the corresponding Nvi commands
-:exu[sage]          # Displays help for the Ex command. The purpose is to simulate the corresponding Nvi commands
-:ve[rsion]          # View the Vim version, and also view the priority and location of the Vim load configuration file
-```
-
-## Resources
-
-- Latest Versions of Vim: https://github.com/vim/vim
-- Windows version: https://github.com/vim/vim-win32-installer/releases
-- Plug-in browsing: http://vimawesome.com
-- Set the Alt key correctly: http://www.skywind.me/blog/archives/2021
-- Video tutorial: http://vimcasts.org/
-- Chinese help: http://vimcdoc.sourceforge.net/doc/help.html
-- Chinese version entry to proficiency: https://github.com/wsdjeg/vim-galore-zh_cn
-- Getting started with a five-minute script: http://www.skywind.me/blog/archives/2193
-- Script mastery: http://learnvimscriptthehardway.stevelosh.com/
-- 16 years of experience: http://zzapper.co.uk/vimtips.html
-- coloring scheme: http://vimcolors.com/
-
 ## Suggestions
 
-- Never use Ctrl+C instead of <Esc>. It has a completely different meaning and is easy to mistakenly interrupt the running background script.
-- Many people use Ctrl+[ instead of <Esc>, the little finger of the left hand is Ctrl, and the little finger of the right hand [ is very convenient after being proficient.
-- If you see strange characters when using Vim 8 embedded terminal in some terminals, use :set t_RS= t_SH= to solve it.
-- If you see strange characters when using NeoVim in some terminals, use :set guicursor= to solve it.
-- Use ciw, ci[, ci", ci( and diw, di[, di", di( commands to quickly rewrite/delete text.
-- When moving the cursor left or right in the line, use w b e or W B E instead of h l or the arrow keys, which will be much faster.
-- Shift is equivalent to moving the accelerator key, w b e moves the cursor very slowly, but W B E moves very fast.
-- You should be good at summarizing new skills, such as moving to a non-blank character at the beginning of a line, using the 0w command is easier to enter than the ^ command.
-- Use the dip command on a blank line to delete all adjacent blank lines, and viw can choose continuous blanking.
-- It is much more convenient to use >8j >} <ap >ap =i} == when indenting.
-- In insert mode, when you find a word is wrong, you should use Ctrl+W. This is faster than <Backspace>.
-- The y d c command can be a good combination of f t and /X such as dt) and y/End<cr>.
-- The c d x command will automatically fill the register "1 to "9, and the y command will automatically fill the "0 register."
-- When using the v command to select text, you can use 0 to make a U-turn selection, which is sometimes useful.
-- When writing an article, you can write a code block, and then select it and execute it:! The python code block will be replaced with the result.
-- After searching, you often use :nohl to eliminate the highlight. It is used very frequently and you can map it to <Backspace>.
-- When searching, you can use Ctrl+R Ctrl+W to insert the word under the cursor, and the command mode can also be used in this way.
-- When mapping keys, noremap should be used by default, and map should only be used when specifically needed.
-- After copying the text with y, press Ctrl+R in the command mode and then press the double quotation mark 0 to insert the previously copied content.
-- GVim under Windows can set set rop=type:directx,renmode:5 to enhance the display.
-- When you feel that doing something is inefficient, you should stop and think about the correct and efficient way to do it.
-
-## Books
-
-[Practical Vim（English version）](https://www.amazon.com/Practical-Vim-Edit-Speed-Thought-ebook-dp-B018T6ZVPK/dp/B018T6ZVPK/ref=mt_other?_encoding=UTF8&me=&qid=) | [Practical Vim（Chinese Version）](https://book.douban.com/subject/)
+- Never use `Ctrl+C` instead of `<Esc>`. It has a completely different meaning and is easy to mistakenly interrupt the running background script.
+- Many people use `Ctrl+[` instead of `<Esc>`, the little finger of the left hand is `Ctrl`, and the little finger of the right hand `[` is very convenient after being proficient.
+- If you see strange characters when using NeoVim in some terminals, use `:set guicursor=` to solve it.
+- Use `ciw`, `ci[`, `ci"`, `ci(` and `diw`, `di[`, `di"`, `di(` commands to quickly rewrite/delete text.
+- When moving the cursor left or right in the line, use `w`, `b`, `e` or `W`, `B`, `E` instead of `h`, `l` or the arrow keys, which will be much faster.
+- Shift is equivalent to moving the accelerator key, `w`, `b`, `e` moves the cursor very slowly, but `W`, `B`, `E` moves very fast.
+- You should be good at summarizing new skills, such as moving to a non-blank character at the beginning of a line, using the `0w` command is easier to enter than the `^` command.
+- Use the `dip` command on a blank line to delete all adjacent blank lines, and `viw` can choose continuous blanking.
+- It is much more convenient to use `>8j`, `>}`, `<ap`, `>ap`, `=i}`, `==` when indenting.
+- In insert mode, when you find a word is wrong, you should use `Ctrl+W`. This is faster than `<Backspace>`.
+- The `y`, `d`, `c` commands can be a good combination of `f`, `t` and `/pattern` such as `dt)` and `y/pattern<CR>`.
+- The `c`, `d`, `x` commands will automatically fill the register `"1` to `"9`, and the `y` command will automatically fill the `"0` register.
+- When using the `v` command to select text, you can use `0` to make a U-turn selection, which is sometimes useful.
+- After searching, you often use `:noh` to eliminate the highlight. It is used very frequently and you can map it to `<Backspace>`.
+- When searching, you can use `Ctrl+R` `Ctrl+W` to insert the word under the cursor, and the command mode can also be used in this way.
+- When mapping keys, `noremap` should be used by default, and `map` should only be used when specifically needed.
+- After copying the text with `y`, press `Ctrl+R` in the command mode and then press the double quotation mark `0` to insert the previously copied content.
 
 ## Keyboard Diagram
 
 <p align="center">
-  <img src="https://github.com/chloneda/vim-cheatsheet/blob/master/resources/vim-commands_EN.png" style="width:90%;" alt="Keyboard Diagram">
+  <img src="https://github.com/chloneda/vim-cheatsheet/blob/master/resources/vim-commands_EN.png" alt="Keyboard Diagram">
 </p>
 
 ## References
