@@ -25,6 +25,7 @@ dotfiles/
 │   ├── neovim-cheatsheet.md
 │   ├── neovim-setup.md
 │   ├── starship-setup.md
+│   ├── tmux-cheatsheet.md
 │   └── tmux-setup.md
 │
 └── README.md
@@ -113,6 +114,10 @@ This configuration typically includes:
 - **📘 Setup Guide** \
   Step-by-step instructions to install and configure Tmux. \
   → [docs/tmux-setup.md](./docs/tmux-setup.md)
+
+- **⌨️ Cheatsheet** \
+  A quick reference for keybindings, commands, and common workflows. \
+  → [docs/neovim-cheatsheet.md](./docs/tmux-cheatsheet.md)
 
 ## ⚠️ Disclaimer
 
