@@ -105,3 +105,8 @@ Prefix + :          # Enter command mode
 Prefix + t          # Show a large digital clock in the center
 Prefix + ?          # Show all key bindings (Help menu)
 ```
+
+---
+
+**See also:** [📘 Tmux Setup Guide](./tmux-setup.md) &nbsp;|&nbsp; [← Back to README](../README.md)
+```

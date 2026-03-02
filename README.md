@@ -4,10 +4,15 @@
     Nguyễn Tấn Phát <br />
     January 25, 2026
   </sub>
-  <h4>
-    My personal dotfiles and development environment configurations
-  </h4>
+  <p>My personal dotfiles and development environment configurations</p>
 </div>
+
+## Table of Contents
+
+- [Neovim](#-neovim)
+- [PowerShell](#-powershell)
+- [Starship](#-starship)
+- [Tmux](#-tmux)
 
 ## 📁 Repository Structure
 
@@ -33,7 +38,7 @@ dotfiles/
 
 ## ✨ Neovim
 
-Neovim is my primary editor and it's setup is designed to be:
+Neovim is my primary editor and its setup is designed to be:
 
 - Minimal but powerful
 - Keyboard-driven
@@ -47,13 +52,24 @@ Neovim is my primary editor and it's setup is designed to be:
 
 ### Documentation
 
-- **📘 Setup Guide** \
-  Step-by-step instructions to install and configure Neovim. \
-  → [docs/neovim-setup.md](./docs/neovim-setup.md)
+- [📘 Setup Guide](./docs/neovim-setup.md) — Step-by-step installation and configuration
+- [⌨️ Cheatsheet](./docs/neovim-cheatsheet.md) — Quick reference for keybindings and common workflows
 
-- **⌨️ Cheatsheet** \
-  A quick reference for keybindings, commands, and common workflows. \
-  → [docs/neovim-cheatsheet.md](./docs/neovim-cheatsheet.md)
+## ✨ PowerShell
+
+PowerShell profile customizations for a consistent shell experience on Windows.
+
+The configuration includes:
+
+- Custom aliases and functions
+- Shell prompt initialization (Starship)
+- Environment variable setup
+
+### Configuration Location
+
+```text
+.config/powershell/
+```
 
 ## ✨ Starship
 
@@ -81,9 +97,7 @@ This directory contains the `starship.toml` file, which defines:
 
 ### Documentation
 
-- **📘 Setup Guide** \
-  Step-by-step instructions to install and configure Starship. \
-  → [docs/starship-setup.md](./docs/starship-setup.md)
+- [📘 Setup Guide](./docs/starship-setup.md) — Step-by-step installation and configuration
 
 ## ✨ Tmux
 
@@ -111,13 +125,8 @@ This configuration typically includes:
 
 ### Documentation
 
-- **📘 Setup Guide** \
-  Step-by-step instructions to install and configure Tmux. \
-  → [docs/tmux-setup.md](./docs/tmux-setup.md)
-
-- **⌨️ Cheatsheet** \
-  A quick reference for keybindings, commands, and common workflows. \
-  → [docs/tmux-cheatsheet.md](./docs/tmux-cheatsheet.md)
+- [📘 Setup Guide](./docs/tmux-setup.md) — Step-by-step installation and configuration
+- [⌨️ Cheatsheet](./docs/tmux-cheatsheet.md) — Quick reference for keybindings and common workflows
 
 ## ⚠️ Disclaimer
 

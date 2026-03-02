@@ -57,3 +57,7 @@ To see your new prompt immediately without restarting WSL, run:
 ```bash
 source ~/.bashrc
 ```
+
+---
+
+**See also:** [← Back to README](../README.md)

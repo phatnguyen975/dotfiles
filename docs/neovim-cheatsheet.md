@@ -548,6 +548,7 @@ T{char}             # Search backward till the next {char} in the current line
 v                   # Switch to character-oriented visual mode
 V                   # Switch to line-oriented visual mode
 Ctrl+V              # Switch to block-oriented visual mode
+Ctrl+Q              # Switch to block-oriented visual mode
 >                   # Increase indent
 <                   # Decrease indent
 d                   # Delete the highlighted text
@@ -1107,12 +1108,16 @@ Ctrl+X Ctrl+Y       # Scroll down in insert mode
 
 ## References
 
-- https://github.com/skywind3000/awesome-cheatsheets/blob/master/editors/vim.txt
-- http://blog.g-design.net/post/4789778607/vim-cheat-sheet
-- http://www.fprintf.net/vimCheatSheet.html
-- http://www.ouyaoxiazai.com/article/24/654.html
-- http://bbs.it-home.org/thread-80794-1-1.html
-- http://www.lpfrx.com/wp-content/uploads/2008/09/vi.jpg
-- https://github.com/glts/vim-cottidie/blob/master/autoload/cottidie/tips
-- https://github.com/hobbestigrou/vimtips-fortune/blob/master/fortunes/vimtips
-- http://michael.peopleofhonoronly.com/vim/
+- [awesome-cheatsheets — vim.txt](https://github.com/skywind3000/awesome-cheatsheets/blob/master/editors/vim.txt)
+- [g-design — Vim Cheat Sheet](http://blog.g-design.net/post/4789778607/vim-cheat-sheet)
+- [fprintf — Vim Cheat Sheet](http://www.fprintf.net/vimCheatSheet.html)
+- [ouyaoxiazai — Vim Reference](http://www.ouyaoxiazai.com/article/24/654.html)
+- [it-home — Vim Thread](http://bbs.it-home.org/thread-80794-1-1.html)
+- [lpfrx — vi.jpg](http://www.lpfrx.com/wp-content/uploads/2008/09/vi.jpg)
+- [vim-cottidie — tips](https://github.com/glts/vim-cottidie/blob/master/autoload/cottidie/tips)
+- [vimtips-fortune](https://github.com/hobbestigrou/vimtips-fortune/blob/master/fortunes/vimtips)
+- [michael.peopleofhonoronly — vim](http://michael.peopleofhonoronly.com/vim/)
+
+---
+
+**See also:** [📘 Neovim Setup Guide](./neovim-setup.md) &nbsp;|&nbsp; [← Back to README](../README.md)

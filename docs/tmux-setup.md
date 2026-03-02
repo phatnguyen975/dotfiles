@@ -164,3 +164,7 @@ return {
 2. **Install plugins:** Press `Prefix` (`Ctrl+a`) then `Shift+i`. Wait for the "Success" message.
 3. **Reload:** Press `Prefix` (`Ctrl+a`) then `r`.
 4. **Font check:** Ensure Windows Terminal is using a Nerd Font (like `FiraCode NF`) to see icons.
+
+---
+
+**See also:** [⌨️ Tmux Cheatsheet](./tmux-cheatsheet.md) &nbsp;|&nbsp; [← Back to README](../README.md)
