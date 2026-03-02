@@ -127,3 +127,7 @@ rm -rf /tmp/dotfiles
 ```
 
 **Explanation:** This script safely removes any generic Neovim files, downloads your personal GitHub repository into a temporary space, extracts only the `.config/nvim` folder you need, and places it exactly where Neovim expects it to be. Finally, it deletes the leftover files.
+
+---
+
+**See also:** [⌨️ Neovim Cheatsheet](./neovim-cheatsheet.md) &nbsp;|&nbsp; [← Back to README](../README.md)
