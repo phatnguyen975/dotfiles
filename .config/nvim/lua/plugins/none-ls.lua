@@ -11,6 +11,7 @@ return {
         formatting.google_java_format.with({
           extra_args = { "--aosp" }
         }),
+        formatting.gofumpt,
       },
     })
     vim.keymap.set(

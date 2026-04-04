@@ -17,10 +17,11 @@ return {
       auto_install = true,
       ensure_installed = {
         "lua_ls",
+        "ts_ls",
         "jdtls",
+        "gopls",
         "html",
         "cssls",
-        "ts_ls",
       },
     },
   },
@@ -31,7 +32,7 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-      local servers = { "html", "cssls", "ts_ls", "tailwindcss", "docker_compose_language_service" }
+      local servers = { "ts_ls", "tailwindcss", "html", "cssls", "yamlls", "docker_compose_language_service" }
       for _, lsp in ipairs(servers) do
         vim.lsp.config[lsp] = { capabilities = capabilities }
         vim.lsp.enable(lsp)
@@ -53,23 +54,19 @@ return {
       }
       vim.lsp.enable("lua_ls")
 
-      -- vim.lsp.config["jdtls"] = {
-      -- 	capabilities = capabilities,
-      -- 	settings = {
-      -- 		java = {
-      -- 			configuration = {
-      -- 				runtimes = {
-      -- 					{
-      -- 						name = "JavaSE-25",
-      -- 						path = "/usr/lib/jvm/java-25-openjdk-amd64",
-      -- 						default = true,
-      -- 					},
-      -- 				},
-      -- 			},
-      -- 		},
-      -- 	},
-      -- }
-      -- vim.lsp.enable("jdtls")
+      vim.lsp.config["gopls"] = {
+        capabilities = capabilities,
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      }
+      vim.lsp.enable("gopls")
 
       vim.keymap.set(
         "n",

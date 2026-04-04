@@ -30,7 +30,7 @@ vim.opt.inccommand = "split"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.opt.shell = "pwsh.exe"
+vim.opt.shell = "/bin/bash"
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.backspace = { "start", "eol", "indent" }

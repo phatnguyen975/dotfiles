@@ -38,7 +38,7 @@ vim.keymap.set("x", "<leader>p", '"_dP', { noremap = true, silent = true, desc =
 
 vim.diagnostic.config({
   virtual_text = {
-    prefix = "●",
+    prefix = "■",
     source = true,
   },
   float = {
