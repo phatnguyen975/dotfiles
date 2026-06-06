@@ -134,6 +134,16 @@ set -g status-style bg=default
 run '~/.config/tmux/plugins/tpm/tpm'
 ```
 
+Then, press the following key binding to automatically download and install all listed plugins:
+
+```bash
+# Install new plugins and refresh the tmux environment
+Prefix + I
+
+# Update all installed plugins
+Prefix + U
+```
+
 ## 4. Configure Neovim for Integration
 
 To move between tmux and Neovim using `Ctrl + h/j/k/l`, add the `vim-tmux-navigator` plugin to your Neovim config (e.g., using `Lazy.nvim`):
