@@ -8,17 +8,12 @@ return {
         formatting.stylua,
         formatting.black,
         formatting.prettier,
+        formatting.gofumpt,
         formatting.google_java_format.with({
           extra_args = { "--aosp" }
         }),
-        formatting.gofumpt,
       },
     })
-    vim.keymap.set(
-      "n",
-      "<leader>fm",
-      vim.lsp.buf.format,
-      { noremap = true, silent = true, desc = "Format document" }
-    )
+    vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, { noremap = true, silent = true, desc = "Format file" })
   end,
 }

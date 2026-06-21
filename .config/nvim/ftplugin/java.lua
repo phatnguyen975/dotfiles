@@ -23,7 +23,10 @@ elseif vim.fn.has("win32") == 1 then
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if has_cmp then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+end
 
 local launcher_jar = vim.fn.glob(jdtls_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar", true, true)[1]
 
@@ -70,7 +73,6 @@ local config = {
       },
       format = {
         enabled = false,
-        -- settings = { profile = "GoogleStyle" },
       },
     },
   },

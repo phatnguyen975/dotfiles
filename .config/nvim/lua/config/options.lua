@@ -1,7 +1,3 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 
 vim.opt.number = true
@@ -29,6 +25,7 @@ vim.opt.inccommand = "split"
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.splitkeep = "screen"
 
 vim.opt.shell = "/bin/bash"
 vim.opt.signcolumn = "yes"
@@ -43,6 +40,10 @@ vim.opt.background = "dark"
 vim.opt.ruler = false
 vim.opt.showmode = false
 vim.opt.swapfile = false
+vim.opt.undofile = true
+
+vim.opt.confirm = true
+vim.opt.winborder = "rounded"
 
 vim.opt.cursorline = true
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#4E7F93" })
