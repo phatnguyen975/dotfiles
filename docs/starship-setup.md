@@ -29,7 +29,7 @@ mkdir -p ~/.config
 Now, take your existing `starship.toml` file and move it into that folder.
 
 ```bash
-cp ~/path/to/repo/.config/starship/starship.toml ~/.config/starship.toml
+cp ~/path/to/repo/.config/starship.toml ~/.config/starship.toml
 ```
 
 ## 4. Activate Starship in Bash
