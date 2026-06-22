@@ -10,7 +10,6 @@
 ## Table of Contents
 
 - [Neovim](#-neovim)
-- [PowerShell](#-powershell)
 - [Starship](#-starship)
 - [Tmux](#-tmux)
 
@@ -54,22 +53,6 @@ Neovim is my primary editor and its setup is designed to be:
 
 - [📘 Setup Guide](./docs/neovim-setup.md) — Step-by-step installation and configuration
 - [⌨️ Cheatsheet](./docs/neovim-cheatsheet.md) — Quick reference for keybindings and common workflows
-
-## ✨ PowerShell
-
-PowerShell profile customizations for a consistent shell experience on Windows.
-
-The configuration includes:
-
-- Custom aliases and functions
-- Shell prompt initialization (Starship)
-- Environment variable setup
-
-### Configuration Location
-
-```text
-.config/powershell/
-```
 
 ## ✨ Starship
 
