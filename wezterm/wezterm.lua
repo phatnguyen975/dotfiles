@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local os = require("os")
 local act = wezterm.action
 local mux = wezterm.mux
 local config = wezterm.config_builder()
@@ -41,13 +40,11 @@ end)
 -- ============================================================================
 -- BACKGROUND
 -- ============================================================================
-local home_dir = os.getenv("USERPROFILE") or os.getenv("HOME")
-
 config.background = {
   -- LAYER 1: the actual background image
   {
     source = {
-      File = home_dir .. "/dotfiles/assets/background.jpg",
+      File = wezterm.home_dir .. "/dotfiles/assets/background.jpg",
     },
     height = "Cover",
     width = "Cover",
@@ -283,6 +280,7 @@ end
 -- ============================================================================
 config.automatically_reload_config = true
 config.check_for_updates = false
+config.term = "wezterm"
  
 config.audible_bell = "Disabled"
 config.visual_bell = {
