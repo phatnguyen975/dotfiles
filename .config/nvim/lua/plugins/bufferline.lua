@@ -18,7 +18,7 @@ return {
         diagnostics_update_in_insert = false,
         diagnostics_update_on_event = true,
         diagnostics_indicator = function(count, level)
-          local icon = level:match("error") and " " or " "
+          local icon = level:match("error") and " " or " "
           return " " .. icon .. count
         end,
         color_icons = true,

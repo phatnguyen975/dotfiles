@@ -21,12 +21,12 @@ return {
         injected_languages = true,
       },
       exclude = {
-        filetypes = { "dashboard", "lspinfo", "checkhealth", "help", "lazy", "mason" },
+        filetypes = { "dashboard", "lspinfo", "checkhealth", "help", "lazy", "mason", "neo-tree" },
         buftypes = { "terminal", "nofile", "quickfix", "prompt" },
       },
     })
     hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
     hooks.register(hooks.type.SKIP_LINE, hooks.builtin.skip_preproc_lines, { bufnr = 0 })
-    vim.keymap.set("n", "<leader>ui", ":IBLToggle<CR>", { desc = "Toggle indent lines" })
+    vim.keymap.set("n", "<leader>ui", ":IBLToggle<CR>", { desc = "Toggle indent blank lines" })
   end,
 }

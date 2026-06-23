@@ -1,6 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     config = function()
       require("mason").setup({
         ui = {
@@ -11,8 +11,8 @@ return {
     end,
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    lazy = false,
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
     opts = {
       auto_install = true,
       ensure_installed = {
@@ -22,6 +22,12 @@ return {
         "gopls",
         "html",
         "cssls",
+        "tailwindcss",
+        "yamlls",
+        "docker_compose_language_service",
+      },
+      automatic_enable = {
+        exclude = { "jdtls" },
       },
     },
   },
@@ -34,12 +40,10 @@ return {
 
       local servers = { "ts_ls", "tailwindcss", "html", "cssls", "yamlls", "docker_compose_language_service" }
       for _, lsp in ipairs(servers) do
-        vim.lsp.config[lsp] = { capabilities = capabilities }
-        vim.lsp.enable(lsp)
+        vim.lsp.config(lsp, { capabilities = capabilities })
       end
 
-      vim.lsp.config["lua_ls"] = {
-        cmd = { "lua-language-server" },
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -51,22 +55,18 @@ return {
             telemetry = { enable = false },
           },
         },
-      }
-      vim.lsp.enable("lua_ls")
+      })
 
-      vim.lsp.config["gopls"] = {
+      vim.lsp.config("gopls", {
         capabilities = capabilities,
         settings = {
           gopls = {
-            analyses = {
-              unusedparams = true,
-            },
+            analyses = { unusedparams = true },
             staticcheck = true,
             gofumpt = true,
           },
         },
-      }
-      vim.lsp.enable("gopls")
+      })
 
       vim.keymap.set(
         "n",

@@ -11,7 +11,7 @@ return {
         java = false,
       },
       disable_filetype = { "TelescopePrompt", "vim" },
-      enable_moveright = false,
+      enable_moveright = true,
       enable_afterquote = true,
       enable_check_bracket_line = true,
       fast_wrap = {

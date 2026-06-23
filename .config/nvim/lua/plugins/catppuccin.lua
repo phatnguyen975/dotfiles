@@ -9,6 +9,10 @@ return {
         light = "latte",
         dark = "mocha",
       },
+      float = {
+        transparent = true,
+        solid = true,
+      },
       transparent_background = true,
       show_end_of_buffer = false,
       term_colors = true,
@@ -18,9 +22,11 @@ return {
       default_integrations = true,
       integrations = {
         cmp = true,
+        gitsigns = true,
         treesitter = true,
         bufferline = true,
         neotree = true,
+        fzf = true,
         indent_blankline = {
           enabled = true,
           scope_color = "lavender",

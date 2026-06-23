@@ -6,12 +6,10 @@ return {
       "rafamadriz/friendly-snippets",
     },
   },
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-cmdline",
-  },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -35,21 +33,32 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ["<C-[>"] = cmp.mapping.select_prev_item(),
+          ["<C-]>"] = cmp.mapping.select_next_item(),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer" },
           { name = "path" },
-          { name = "render-markdown" },
-          { name = "html" },
-          { name = "cssls" },
-          { name = "ts_ls" },
-          { name = "jdtls" },
-          { name = "gopls" },
+        }, {
+          { name = "buffer" },
         }),
+      })
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
+      })
+
+      cmp.setup.cmdline({ "/", "?" }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
       })
     end,
   },
