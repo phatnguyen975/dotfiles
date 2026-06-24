@@ -35,9 +35,9 @@ return {
           { icon = " ", desc = "Quit", key = "q", action = "qa" },
         },
         footer = {
-          [[                                      ]],
-          [[  🚀 Getting started with NeoVim 🚀  ]],
-          [[ ✨ Let's build something amazing ✨ ]],
+          [[                                   ]],
+          [[   Getting started with NeoVim   ]],
+          [[       ⚡ Ship code faster ⚡        ]],
         },
         verticle_center = true,
       },

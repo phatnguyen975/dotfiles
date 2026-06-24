@@ -20,6 +20,7 @@ return {
         "ts_ls",
         "jdtls",
         "gopls",
+        "pyright",
         "html",
         "cssls",
         "tailwindcss",
@@ -38,7 +39,7 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-      local servers = { "ts_ls", "tailwindcss", "html", "cssls", "yamlls", "docker_compose_language_service" }
+      local servers = { "ts_ls", "pyright", "tailwindcss", "html", "cssls", "yamlls", "docker_compose_language_service" }
       for _, lsp in ipairs(servers) do
         vim.lsp.config(lsp, { capabilities = capabilities })
       end

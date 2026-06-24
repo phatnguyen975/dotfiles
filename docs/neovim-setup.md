@@ -2,7 +2,7 @@
   <h1>Neovim Setup</h1>
   <sub>
     Nguyễn Tấn Phát <br />
-    February 25, 2026
+    June 24, 2026
   </sub>
 </div>
 
@@ -18,6 +18,9 @@ Before touching WSL, you must configure your Windows Terminal to support icons.
 
 > Modern Neovim plugins use special characters for file icons, git branches, and UI separators. Standard fonts do not have these characters; Nerd Fonts are patched to include them.
 
+> [!NOTE]
+> If you're using WezTerm, set the font in your terminal emulator's profile settings (see [WezTerm Setup](./wezterm-setup.md) — `config.font` is already set there).
+
 ## 2. Install System Dependencies on Ubuntu
 
 Open your WSL Ubuntu terminal and run the following commands:
@@ -25,12 +28,14 @@ Open your WSL Ubuntu terminal and run the following commands:
 ```bash
 sudo apt update && sudo apt
 
-sudo apt install -y build-essential git curl unzip ripgrep fzf bat python3 python3-pip python3-venv
+sudo apt install -y build-essential git curl unzip ripgrep fzf bat \
+  python3 python3-pip python3-venv \
+  tree-sitter-cli ncurses-term
 ```
 
 **Explanation:**
 
-- `build-essential`: Provides the `gcc` compiler, which the `nvim-treesitter` plugin needs to compile code for syntax highlighting.
+- `build-essential`: Provides the `gcc`/`g++` compiler, needed to build native parsers and tree-sitter grammars.
 - `git`: Needed to download plugins.
 - `curl`: Command-line tools to download files from the internet.
 - `unzip`: Tools to extract downloaded archive files.
@@ -38,6 +43,8 @@ sudo apt install -y build-essential git curl unzip ripgrep fzf bat python3 pytho
 - `fzf`: A fast, interactive fuzzy finder for searching and filtering files, buffers, commands, and search results in real time.
 - `bat`: A modern replacement for cat with syntax highlighting, line numbers, and Git integration.
 - `python3` / `python3-pip` / `python3-venv`: Installs Python and its package managers. Many Neovim Language Servers and tools require a Python environment to function.
+- `tree-sitter-cli`: Required by `nvim-treesitter`.
+- `ncurses-term`: Provides a fuller terminfo database (e.g. `tmux-256color`).
 
 ## 3. Install the Latest Neovim Binary
 

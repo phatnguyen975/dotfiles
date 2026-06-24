@@ -3,9 +3,10 @@ return {
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
+    "nvim-tree/nvim-web-devicons",
   },
+  lazy = false,
   config = function()
     require("neo-tree").setup({
       close_if_last_window = true,
@@ -21,11 +22,14 @@ return {
           folder_empty = "󰉖",
           folder_empty_open = "󰷏",
           default = "󰡯",
+          highlight = "NeoTreeFileIcon",
+          use_filtered_colors = true,
         },
         modified = { symbol = "●" },
         name = {
           trailing_slash = false,
           use_git_status_colors = true,
+          highlight = "NeoTreeFileName",
         },
         git_status = {
           symbols = {
@@ -34,9 +38,9 @@ return {
             deleted = "",
             renamed = "",
             ignored = "",
-            untracked = "★",
-            unstaged = "✗",
-            staged = "✓",
+            untracked = "",
+            unstaged = "󰄱",
+            staged = "󰄵",
             conflict = "",
           },
         },
