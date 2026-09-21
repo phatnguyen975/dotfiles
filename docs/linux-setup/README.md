@@ -15,11 +15,14 @@ A step-by-step guide to installing Linux on a Windows machine, covering the thre
 
 If you're not sure, **Method 3** is the safest starting point — it's the only one of the three that can't damage your existing Windows install, since the installer never even sees the internal disk as a valid target unless you point it there yourself.
 
+Once Omarchy is installed, see **[omarchy-guide.md](omarchy-guide.md)** for how to actually use it — keybindings, AI tooling, theming, and system management.
+
 ## Repository structure
 
 ```
 linux-on-windows-install-guide/
-├── references/              # Shared steps used by all 3 methods (read as needed — each file stands on its own, no need to read them in any particular order)
+├── omarchy-guide.md         # Using Omarchy day to day — every keybinding, AI features, theming, and system management
+├── references/              # Shared steps used by all 3 methods (read as needed)
 ├── install-full-disk/       # Method 1 — full step-by-step guide + method-specific notes
 ├── install-dual-boot/       # Method 2 — full step-by-step guide + method-specific notes
 └── install-external-ssd/    # Method 3 — full step-by-step guide + method-specific notes
