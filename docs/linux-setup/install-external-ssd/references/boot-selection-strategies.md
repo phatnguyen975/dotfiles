@@ -2,11 +2,9 @@
 
 When Linux lives on an external SSD and Windows stays untouched on the internal drive, you need a repeatable way to choose which one boots. This file expands on Step 7 of [README.md](../README.md).
 
-## Why this is different from a normal dual-boot setup
+## Why the firmware, not Limine, decides what you see by default
 
-In a same-disk dual boot (Method 2), one bootloader (Limine) is installed to the shared disk's EFI System Partition and presents a menu listing both OSes every time — you always see a choice, on every boot, regardless of anything else.
-
-With Method 3, Limine is installed to the **external SSD's own EFI System Partition**, separate from the internal Windows disk's own EFI System Partition and Windows Boot Manager. By default, only "Omarchy" (plus its own Snapper snapshot entries) shows up in the Limine menu — Windows is not listed, because Limine only knows about the disk it was installed onto. This gives you two layers of choice, and you can use either or both:
+In a same-disk dual boot, Limine becomes the default bootloader after installing Omarchy — but it does **not** automatically detect or list Windows. Per Omarchy's own manual, you still have to run `limine-scan` afterward to add Windows as a menu option; until then, Limine's menu only shows Omarchy. So even on a single shared disk, getting a combined "pick your OS" menu is a deliberate extra step, not something that happens for free.
 
 - **Layer 1 — which bootloader does the firmware hand control to?** (Strategies 1–3 below: plug-in-before-power-on, boot-menu hotkey, or boot order)
 - **Layer 2 — once Limine has control, does it also offer Windows as a menu option?** (Strategy 4 below: `limine-scan`)

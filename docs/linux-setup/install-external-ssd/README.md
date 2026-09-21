@@ -4,8 +4,8 @@ Your internal drive (Windows) is **never touched** by this method — the instal
 
 Two variants are covered:
 
-- **3a — Full-disk:** the entire external SSD becomes the Linux install (the worked-example path).
-- **3b — Partitioned:** the external SSD is split into a Linux install + a separate shared-data partition readable/writable from both Windows and Linux.
+- **Full-disk:** the entire external SSD becomes the Linux install (the worked-example path).
+- **Partitioned:** the external SSD is split into a Linux install + a separate shared-data partition readable/writable from both Windows and Linux.
 
 ## Step 1 — Prerequisites
 
@@ -44,13 +44,14 @@ Follow [usb-preparation.md](../references/usb-preparation.md) in full using the 
 1. From the Omarchy live boot menu, boot into the installer. It starts automatically as a text-based (keyboard-driven) installer — use the **arrow keys** to move between options and **Enter** to select, throughout every screen.
 2. **Keyboard layout** — the first screen. Use the arrow keys to highlight your layout (e.g. "US") and press **Enter**.
 3. **Network connection** — if the installer doesn't detect a wired connection, it automatically scans for Wi-Fi networks. Use the arrow keys to highlight your network and press **Enter**; if it's password-protected, a text field opens automatically — type the password and press **Enter**.
-4. **Disk selection** — the installer lists every disk it can install to. Use the arrow keys to highlight the external SSD (cross-check its size against what you confirmed in Step 2 — **not** the internal NVMe drive) and press **Enter**.
+4. **Disk selection** — the installer lists every disk it can install to. Use the arrow keys to highlight the external SSD (cross-check its size against what you confirmed in Step 2 — **not** the internal NVMe drive) and press **Enter**. **This is the step that actually decides which physical disk gets used** — whatever you choose next (full-disk or free-space) only ever applies to the disk you selected right here, never to any other disk in the machine.
+5. **Partitioning mode** — after selecting the disk, the installer offers a choice between wiping the whole disk and a free-space install. Which one to pick is covered next — both apply only to the external SSD you just selected in step 4, so the internal Windows drive is unaffected either way.
 
-### 3a — Full-disk variant (worked example)
+### Full-disk variant (worked example)
 
-Choose the **full-disk** install option when prompted for a partitioning mode. This wipes and takes over the entire external SSD, installing Omarchy's default layout: Btrfs root + Snapper + Limine bootloader, with full-disk LUKS encryption on by default. The internal Windows drive is never referenced during this process.
+Choose the **full-disk** install option. Since you already selected the external SSD in step 4 above, this wipes and takes over the **entire external SSD only** — installing Omarchy's default layout: Btrfs root + Snapper + Limine bootloader, with full-disk LUKS encryption on by default. The internal Windows drive is never referenced during this process, because it was never the disk selected in step 4.
 
-### 3b — Partitioned variant
+### Partitioned variant
 
 If you want a dedicated shared-data partition alongside Linux on the same external SSD:
 
@@ -91,12 +92,13 @@ Follow [post-install.md](../references/post-install.md): first-boot LUKS passwor
 
 ## Step 10 — (Optional) Set up the shared data partition
 
-If you used the 3b partitioned variant, finish the cross-OS mount setup in [shared-data-partition.md](../references/shared-data-partition.md) so the shared area is accessible with normal read/write permissions from both Omarchy and Windows.
+If you used the partitioned variant, finish the cross-OS mount setup in [shared-data-partition.md](../references/shared-data-partition.md) so the shared area is accessible with normal read/write permissions from both Omarchy and Windows.
 
 ## References
 
 - Omarchy — Getting Started (official install flow, disk selection, encryption defaults): https://omarchy.org/manual/getting-started/
-- Omarchy — Dual Boot Install (free-space install mechanism, used here for the 3b partitioned variant; also documents `limine-scan`): https://omarchy.org/manual/dual-boot-install/
+- Omarchy — Dual Boot Install (free-space install mechanism, used here for the partitioned variant; also documents `limine-scan`): https://omarchy.org/manual/dual-boot-install/
 - Omarchy — System Snapshots: https://omarchy.org/manual/system-snapshots/
 - Omarchy ISO releases (GitHub): https://github.com/basecamp/omarchy/releases
-- Installer prompt sequence (keyboard layout, network, user/hostname/timezone fields, disk-selection warning) cross-checked against two independent third-party walkthroughs of the official Omarchy ISO installer
+- How to Dual Boot Omarchy and Windows: https://www.youtube.com/watch?v=JnjLMfoFarY
+- How to Install Linux on External SSD: https://www.youtube.com/watch?v=lz8TDYSKXu8
