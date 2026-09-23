@@ -15,17 +15,18 @@ A step-by-step guide to installing Linux on a Windows machine, covering the thre
 
 If you're not sure, **Method 3** is the safest starting point — it's the only one of the three that can't damage your existing Windows install, since the installer never even sees the internal disk as a valid target unless you point it there yourself.
 
-Once Omarchy is installed, see **[omarchy-guide.md](omarchy-guide.md)** for how to actually use it — keybindings, AI tooling, theming, and system management.
+Once Omarchy is installed, see **[omarchy-guide.md](omarchy-guide.md)** for how to actually use it — keybindings, AI tooling, theming, and system management. For typing Vietnamese specifically, see **[omarchy-vietnamese-input.md](omarchy-vietnamese-input.md)**.
 
 ## Repository structure
 
 ```
 linux-on-windows-install-guide/
-├── omarchy-guide.md         # Using Omarchy day to day — every keybinding, AI features, theming, and system management
-├── references/              # Shared steps used by all 3 methods (read as needed)
-├── install-full-disk/       # Method 1 — full step-by-step guide + method-specific notes
-├── install-dual-boot/       # Method 2 — full step-by-step guide + method-specific notes
-└── install-external-ssd/    # Method 3 — full step-by-step guide + method-specific notes
+├── omarchy-guide.md             # Using Omarchy day to day — every keybinding, AI features theming, and system management
+├── omarchy-vietnamese-input.md  # Installing and using Vietnamese input (fcitx5-unikey)
+├── references/                  # Shared steps used by all 3 methods (read as needed)
+├── install-full-disk/           # Method 1 — full step-by-step guide + method-specific notes
+├── install-dual-boot/           # Method 2 — full step-by-step guide + method-specific notes
+└── install-external-ssd/        # Method 3 — full step-by-step guide + method-specific notes
 ```
 
 Each method's `README.md` is a complete, start-to-finish guide for that method — it links out to the relevant files in `references/` at each step, and to its own `references/` subfolder for anything specific to that one method. You don't need to read anything in `references/` on its own first; just start with whichever method's `README.md` matches what you're doing, and follow the links as they come up.
