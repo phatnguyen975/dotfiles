@@ -13,6 +13,8 @@ select disk N
 clean
 convert gpt
 create partition primary
+list partition
+select partition N
 format fs=exfat quick label="USB"
 assign
 exit
@@ -33,6 +35,8 @@ select disk N
 clean
 convert gpt
 create partition primary
+list partition
+select partition N
 format fs=exfat quick label="SSD"
 assign
 exit
