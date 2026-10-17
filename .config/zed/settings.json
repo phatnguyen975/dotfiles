@@ -1,0 +1,70 @@
+// Zed Settings: https://zed.dev/docs/reference/all-settings
+{
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "outline_panel": {
+    "indent_size": 12,
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "project_panel": {
+    "dock": "left",
+    "git_status_indicator": true,
+    "auto_fold_dirs": true,
+    "indent_size": 12,
+  },
+  "base_keymap": "Zed",
+  "vim_mode": false,
+  "session": {
+    "trust_all_worktrees": false,
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000,
+    },
+  },
+  "tabs": {
+    "git_status": true,
+    "file_icons": true,
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+  },
+  "markdown_preview": {
+    "limit_content_width": false,
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha",
+  },
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha",
+  },
+  "terminal": {
+    "font_family": "FiraCode Nerd Font",
+    "font_size": 14,
+  },
+  "buffer_font_size": 14,
+  "buffer_font_features": {
+    "calt": true,
+  },
+  "lsp": {
+    "jdtls": {
+      "settings": {
+        "java_home": "C:\\Program Files\\Java\\jdk-25",
+        "lombok_support": true,
+      },
+    },
+  },
+}
