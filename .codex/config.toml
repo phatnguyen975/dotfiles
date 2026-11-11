@@ -1,0 +1,19 @@
+# Model and Reasoning
+model_reasoning_effort = "medium"
+model_reasoning_summary = "auto"
+
+# Execution and Approvals
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# Windows Sandbox
+[windows]
+sandbox = "elevated"
+
+# Terminal Interface
+[tui]
+screen_reader_detection_done = true
+
+# Shell Environment
+[shell_environment_policy]
+ignore_default_excludes = false

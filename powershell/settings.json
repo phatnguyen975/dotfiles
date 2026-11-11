@@ -52,7 +52,7 @@
     },
     {
       "id": "Terminal.FindText",
-      "keys": "ctrl+f"
+      "keys": "ctrl+shift+f"
     },
     {
       "id": "Terminal.OpenNewTab",
@@ -60,7 +60,7 @@
     },
     {
       "id": "Terminal.DuplicateTab",
-      "keys": "ctrl+d"
+      "keys": "ctrl+shift+d"
     },
     {
       "id": "User.RenameTab",
@@ -88,7 +88,7 @@
     },
     {
       "id": "Terminal.DuplicatePaneAuto",
-      "keys": "alt+d"
+      "keys": "alt+shift+d"
     },
     {
       "id": "Terminal.ClosePane",
@@ -139,7 +139,7 @@
   "profiles": {
     "defaults": {
       "backgroundImage": "C:\\Users\\GIGA\\dotfiles\\assets\\background.jpg",
-      "backgroundImageOpacity": 0.4,
+      "backgroundImageOpacity": 0.2,
       "colorScheme": "Catppuccin Mocha",
       "font": {
         "face": "JetBrainsMono Nerd Font"
