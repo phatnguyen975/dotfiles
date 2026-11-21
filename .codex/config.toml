@@ -6,6 +6,10 @@ model_reasoning_summary = "auto"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
+# Workspace Sandbox
+[sandbox_workspace_write]
+network_access = true
+
 # Windows Sandbox
 [windows]
 sandbox = "elevated"
