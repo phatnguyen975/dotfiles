@@ -6,13 +6,15 @@ model_reasoning_summary = "auto"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
+# Git Commit Attribution
+commit_attribution = "Codex <noreply@openai.com>"
+
+[features]
+codex_git_commit = true
+
 # Workspace Sandbox
 [sandbox_workspace_write]
 network_access = true
-
-# Windows Sandbox
-[windows]
-sandbox = "elevated"
 
 # Terminal Interface
 [tui]
