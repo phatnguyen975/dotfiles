@@ -1,46 +1,64 @@
-# Linux on Windows — Install Guide
+# Linux Installation Guide
 
-A step-by-step guide to installing Linux on a Windows machine, covering the three most common approaches. Every generic step works for any modern 64-bit UEFI machine and any distro ISO; wherever a concrete example helps, it uses the same worked example throughout the whole repo: **Omarchy 4.0.4** (official ISO from omarchy.org) on a **Gigabyte A16** gaming laptop, with the install USB built from a **SanDisk** flash drive.
+Install Linux on a PC currently running Windows, using one of three storage layouts. Omarchy is the worked example; disk preparation, firmware, verification and recovery principles also apply to other distributions with UEFI-compatible installers.
 
-## Which method should I use?
+## Choose an Installation Method
 
-|                           | [Method 1 — Full Disk](install-full-disk/README.md) | [Method 2 — Dual Boot](install-dual-boot/README.md) | [Method 3 — External SSD](install-external-ssd/README.md)        |
-| ------------------------- | --------------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
-| **Windows afterward**     | Erased completely                                   | Kept, shares the internal disk                      | Kept, completely untouched                                       |
-| **Extra hardware needed** | None                                                | None                                                | An external SSD                                                  |
-| **Risk level**            | High — no partial undo                              | Medium — resizes the disk Windows runs on           | Low — internal disk is never written to                          |
-| **Setup complexity**      | Simplest (no partition math, no dual-boot menu)     | Moderate (partition shrink + `limine-scan` step)    | Moderate (boot-selection strategy to choose)                     |
-| **Undo later**            | Reinstall Windows from scratch                      | Delete Linux partitions, extend Windows back        | Unplug the SSD, or wipe/reuse it                                 |
-| **Best for**              | A machine that will be Linux-only going forward     | One machine, want both OSes always available        | Trying Linux without committing, or carrying it between machines |
+| Method                                               | Windows             | Storage                 | Main Risk                          |
+| ---------------------------------------------------- | ------------------- | ----------------------- | ---------------------------------- |
+| [Full-Disk Installation](install/full-disk.md)       | Removed from target | Internal drive          | All target data is erased          |
+| [Same-Disk Dual Boot](install/dual-boot.md)          | Retained            | Shared internal drive   | Resizing and boot configuration    |
+| [External SSD Installation](install/external-ssd.md) | Retained            | Separate external drive | Wrong disk or misplaced boot files |
 
-If you're not sure, **Method 3** is the safest starting point — it's the only one of the three that can't damage your existing Windows install, since the installer never even sees the internal disk as a valid target unless you point it there yourself.
+Choose full-disk installation if you no longer need Windows on the target disk. Choose dual boot if you need both systems without buying another drive, or an external SSD if you prefer separate storage and can verify independent booting.
 
-Once Omarchy is installed, see **[omarchy-guide.md](omarchy-guide.md)** for how to actually use it — keybindings, AI tooling, theming, and system management. For typing Vietnamese specifically, see **[omarchy-vietnamese-input.md](omarchy-vietnamese-input.md)**.
+An external SSD reduces partitioning risks to Windows, but is not risk-free. If you only want to explore a desktop, a virtual machine is a less invasive alternative to all three methods.
 
-## Repository structure
+## Start Here
 
+1. Open your chosen installation guide and follow its steps in order.
+2. Complete the linked preparation tasks before approving any disk changes.
+3. Perform the method-specific boot checks, followed by the [common post-installation checks](common/post-install.md).
+4. For Omarchy, continue with [desktop usage](omarchy/desktop.md) and optional [Vietnamese input](omarchy/vietnamese-input.md).
+5. Keep the [recovery guide](recovery/README.md) accessible on a separate device.
+
+## Scope and Version
+
+- **Scope:** personally owned x86-64 PCs, Windows 11, UEFI firmware, and GPT system disks. Legacy BIOS, MBR conversion, ARM PCs, Apple Silicon, dynamic disks, RAID arrays and managed machines require separate procedures.
+- **Example distribution:** `Omarchy 4.5.0 (Quattro RS)`, latest stable release confirmed on November 25, 2026. Use the x86 ISO, not the ARM ISO or a release candidate.
+- **Other distributions:** use their official requirements and installer documentation for the actual partitioning, encryption, bootloader and update steps. Omarchy-specific instructions are explicitly identified.
+- **Verification:** documentation and commands were reviewed against published sources; no physical installation or boot test was performed for this guide. Firmware and storage layouts differ, so stop if the actual screen or partition plan does not match your selected method.
+
+## Document Map
+
+```text
+linux-setup/
+├── README.md
+├── install/
+│   ├── full-disk.md
+│   ├── dual-boot.md
+│   └── external-ssd.md
+├── common/
+│   ├── preparation.md
+│   ├── disk-identification.md
+│   ├── installation-media.md
+│   ├── firmware-and-boot.md
+│   ├── post-install.md
+│   └── shared-storage.md
+├── omarchy/
+│   ├── installer.md
+│   ├── desktop.md
+│   └── vietnamese-input.md
+└── recovery/
+    ├── README.md
+    └── windows-reinstall.md
 ```
-linux-on-windows-install-guide/
-├── omarchy-guide.md             # Using Omarchy day to day — every keybinding, AI features theming, and system management
-├── omarchy-vietnamese-input.md  # Installing and using Vietnamese input (fcitx5-unikey)
-├── references/                  # Shared steps used by all 3 methods (read as needed)
-├── install-full-disk/           # Method 1 — full step-by-step guide + method-specific notes
-├── install-dual-boot/           # Method 2 — full step-by-step guide + method-specific notes
-└── install-external-ssd/        # Method 3 — full step-by-step guide + method-specific notes
-```
 
-Each method's `README.md` is a complete, start-to-finish guide for that method — it links out to the relevant files in `references/` at each step, and to its own `references/` subfolder for anything specific to that one method. You don't need to read anything in `references/` on its own first; just start with whichever method's `README.md` matches what you're doing, and follow the links as they come up.
+The `install/` guides own the three workflows. The `common/` files explain reusable procedures, `omarchy/` contains distribution-specific instructions, and `recovery/` covers reversing or repairing installations.
 
-## What's in `references/`
+## References
 
-- [prerequisites.md](references/prerequisites.md) — backup checklist, UEFI/Secure Boot check, downloading and verifying the distro ISO
-- [disk-and-usb-identification.md](references/disk-and-usb-identification.md) — **read this before running any command that can erase a disk.** How Windows and Linux name disks, and how to confirm you have the right one
-- [usb-preparation.md](references/usb-preparation.md) — building a bootable install USB with Rufus, balenaEtcher, or Ventoy; using `diskpart` to reset a USB first if needed
-- [bios-uefi-and-boot-menu.md](references/bios-uefi-and-boot-menu.md) — entering BIOS setup and the one-time boot menu (Dell, Lenovo, Asus, HP, Acer, MSI, Gigabyte — including the Gigabyte A16), and which settings to change and why
-- [shared-data-partition.md](references/shared-data-partition.md) — setting up a partition both Windows and Linux can read/write normally, no permission issues
-- [post-install.md](references/post-install.md) — first-boot checks, updating, and Limine's automatic snapshot/rollback feature
-- [rollback-and-cleanup.md](references/rollback-and-cleanup.md) — reformatting a USB or external SSD back to normal storage, and restoring Windows after either a full-disk or dual-boot install
-
-## A note on accuracy
-
-Every non-obvious command or setting in this repo is explained (what it does, why that option), and every file ends with a **References** section linking to the actual sources used — mostly official documentation (Omarchy's own manual, Microsoft Learn, Arch Wiki, vendor support sites) rather than guesses. Software moves fast, though — Omarchy in particular ships frequent updates — so treat version numbers and exact screens as accurate as of when each file was last checked, and cross-reference the linked official docs if something on your screen doesn't match.
+- [Omarchy Official Downloads](https://omarchy.org/)
+- [Omarchy Stable Releases](https://github.com/omacom/omarchy/releases/latest)
+- [Omarchy 4.5 Release Announcement](https://omarchy.org/news/2026/11/omarchy-4-5/)
+- [ArchWiki: Dual Boot With Windows](https://wiki.archlinux.org/title/Dual_boot_with_Windows)
