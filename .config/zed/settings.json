@@ -98,11 +98,36 @@
   "buffer_font_features": {
     "calt": true,
   },
+  "languages": {
+    "Go": {
+      "language_servers": ["gopls"],
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.organizeImports": true,
+      },
+    },
+  },
   "lsp": {
     "jdtls": {
       "settings": {
-        "java_home": "C:\\Program Files\\Java\\jdk-25",
+        "java_home": "/path/to/your/jdk",
         "lombok_support": true,
+      },
+    },
+    "gopls": {
+      "initialization_options": {
+        "usePlaceholders": true,
+        "completeUnimported": true,
+        "staticcheck": true,
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true,
+        },
       },
     },
   },
