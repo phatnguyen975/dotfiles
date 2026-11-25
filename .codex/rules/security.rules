@@ -1,0 +1,79 @@
+# Git Operations
+
+prefix_rule(
+    pattern = ["git", ["commit", "push", "merge", "rebase", "tag"]],
+    decision = "prompt",
+    justification = "Git history and remote changes require human approval.",
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Preserve existing user changes.",
+)
+
+prefix_rule(
+    pattern = ["git", "clean"],
+    decision = "prompt",
+    justification = "Removing untracked files requires human approval.",
+)
+
+prefix_rule(
+    pattern = ["git", "branch", ["-d", "-D", "--delete"]],
+    decision = "prompt",
+    justification = "Branch deletion requires human approval.",
+)
+
+# Filesystem Operations
+
+prefix_rule(
+    pattern = ["rm"],
+    decision = "prompt",
+    justification = "File deletion requires human approval.",
+)
+
+# System Operations
+
+prefix_rule(
+    pattern = [["sudo", "su", "doas"]],
+    decision = "forbidden",
+    justification = "Privilege escalation is prohibited.",
+)
+
+prefix_rule(
+    pattern = [["shutdown", "reboot", "poweroff"]],
+    decision = "forbidden",
+    justification = "System power operations are prohibited.",
+)
+
+# Infrastructure Operations
+
+prefix_rule(
+    pattern = ["docker", "system", "prune"],
+    decision = "prompt",
+    justification = "Docker resource cleanup requires human approval.",
+)
+
+prefix_rule(
+    pattern = ["docker", "volume", ["rm", "prune"]],
+    decision = "prompt",
+    justification = "Docker volume deletion requires human approval.",
+)
+
+prefix_rule(
+    pattern = [["terraform", "tofu"], ["apply", "destroy"]],
+    decision = "prompt",
+    justification = "Infrastructure changes require human approval.",
+)
+
+prefix_rule(
+    pattern = ["kubectl", ["apply", "delete", "replace", "patch", "edit", "scale"]],
+    decision = "prompt",
+    justification = "Cluster modifications require human approval.",
+)
+
+prefix_rule(
+    pattern = ["helm", ["install", "upgrade", "uninstall", "rollback"]],
+    decision = "prompt",
+    justification = "Deployment changes require human approval.",
+)

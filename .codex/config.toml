@@ -1,25 +1,56 @@
+# Terminal Interface
+[tui]
+screen_reader_detection_done = true
+
 # Model and Reasoning
 model_reasoning_effort = "medium"
 model_reasoning_summary = "auto"
 
 # Execution and Approvals
 approval_policy = "on-request"
-sandbox_mode = "workspace-write"
+default_permissions = "development"
 
-# Git Commit Attribution
-commit_attribution = "Codex <noreply@openai.com>"
+# Permission Profile
+[permissions.development]
+description = "Secure development workspace with human approval"
+extends = ":workspace"
 
-[features]
-codex_git_commit = true
+# Filesystem Permissions
+[permissions.development.filesystem]
+glob_scan_max_depth = 5
 
-# Workspace Sandbox
-[sandbox_workspace_write]
-network_access = true
+"~/.ssh" = "deny"
+"~/.gnupg" = "deny"
+"~/.aws" = "deny"
+"~/.azure" = "deny"
+"~/.config/gcloud" = "deny"
+"~/.kube" = "deny"
+"~/.docker/config.json" = "deny"
+"~/.git-credentials" = "deny"
+"~/.netrc" = "deny"
+"~/.codex/auth.json" = "deny"
 
-# Terminal Interface
-[tui]
-screen_reader_detection_done = true
+[permissions.development.filesystem.":workspace_roots"]
+"**/.env" = "deny"
+"**/.env.*" = "deny"
+"**/*.pem" = "deny"
+"**/*.key" = "deny"
+"**/*.p12" = "deny"
+"**/*.pfx" = "deny"
+
+# Network Permissions
+[permissions.development.network]
+enabled = false
 
 # Shell Environment
 [shell_environment_policy]
+inherit = "all"
 ignore_default_excludes = false
+
+[shell_environment_policy.filters]
+"*PASSWORD*" = "exclude"
+"*PASSWD*" = "exclude"
+"*CREDENTIAL*" = "exclude"
+"*PRIVATE_KEY*" = "exclude"
+"SSH_AUTH_SOCK" = "exclude"
+"DATABASE_URL" = "exclude"
