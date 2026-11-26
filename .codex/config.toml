@@ -12,6 +12,9 @@ model_reasoning_summary = "auto"
 approval_policy = "on-request"
 default_permissions = "development"
 
+[windows]
+sandbox = "elevated"
+
 # Permission Profile
 [permissions.development]
 description = "Secure development workspace with human approval"
